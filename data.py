@@ -11,6 +11,7 @@ class XRDData(Dataset):
         for y, class_name in enumerate(sub_dirs):
             class_data = []
             files = glob.glob(class_name + "/*")
+            print(len(files), round(len(class_data) * train_test_split))
             files = files[:round(len(class_data) * train_test_split)] if train \
                 else files[round(len(class_data) * train_test_split):]
             # todo its fast to just count the sizes... can count sizes and get item via just reading one at a time
