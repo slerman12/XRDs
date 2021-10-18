@@ -32,12 +32,12 @@ class ConvNet1D(nn.Module):
         super(ConvNet1D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv1d(2, 16, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm2d(16),
+            nn.BatchNorm1d(16),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2))
         self.layer2 = nn.Sequential(
             nn.Conv1d(16, 32, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm2d(32),
+            nn.BatchNorm1d(32),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.Flatten(1))
@@ -55,14 +55,14 @@ class ConvNet2D(nn.Module):
         super(ConvNet2D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm1d(16),
+            nn.BatchNorm2d(16),
             nn.ReLU(),
-            nn.MaxPool1d(kernel_size=2, stride=2))
+            nn.MaxPool2d(kernel_size=2, stride=2))
         self.layer2 = nn.Sequential(
             nn.Conv2d(16, 32, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm1d(32),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
-            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Flatten(1))
         self.fc = nn.Linear(7*7*32, num_classes)
 
