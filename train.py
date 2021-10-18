@@ -120,6 +120,7 @@ if __name__ == '__main__':
             x = x.float()
             if not conv:
                 x = torch.flatten(x, start_dim=1)
+            print(x.shape)
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
             loss = cost(y_pred, y)
