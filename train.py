@@ -1,3 +1,4 @@
+import argparse
 import glob
 import random
 import time
@@ -11,6 +12,12 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
+
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--log_dir', default="runs", type=str, help='logging directory')
+args = parser.parse_args()
+
 
 seed = 1
 torch.manual_seed(seed)
@@ -74,7 +81,7 @@ model = nn.Sequential(nn.Linear(3600, 512), nn.ReLU(),
 
 # model = ConvNet1D()
 
-writer = SummaryWriter()
+writer = SummaryWriter(log_dir=log_dir)
 
 
 if __name__ == '__main__':
