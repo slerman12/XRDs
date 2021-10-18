@@ -13,7 +13,7 @@ class XRDData(Dataset):
             for file in files:
                 with open(file) as f:
                     lines = f.readlines()[3:]
-                    lines = [list(map(float, line.strip().split())) for line in lines]
+                    lines = [list(map(float, line.strip().split(", "))) for line in lines]
                     x = torch.FloatTensor(lines)
                     data_point = (x, y)
                     class_data.append(data_point)
