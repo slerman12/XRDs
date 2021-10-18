@@ -88,20 +88,24 @@ if __name__ == '__main__':
         train_loader = torch.load('train_loader.pt')
         print("done")
     else:
+        print("parsing train...")
         train_dataset = XRDData(root='xrd_data', train=True, train_test_split=train_test_split)
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
         torch.save(train_loader, 'train_loader.pt')
+        print("done")
 
     if './test_loader.pt' in saved:
         print("loading test...")
         test_loader = torch.load('test_loader.pt')
         print("done")
     else:
+        print("parsing test...")
         test_dataset = XRDData(root='xrd_data', train=False, train_test_split=train_test_split)
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
         torch.save(test_loader, 'test_loader.pt')
+        print("done")
 
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr)
