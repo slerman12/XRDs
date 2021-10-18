@@ -1,12 +1,11 @@
 import random
 import time
 
-from torch.nn.modules.pooling import _AdaptiveAvgPoolNd
 from torch.optim.lr_scheduler import ExponentialLR
 from torchvision.datasets import mnist
 from torch.optim import SGD, AdamW
 from torch.utils.data import DataLoader
-from torchvision.transforms import ToTensor, Normalize, Compose
+from data import XRDData
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -56,11 +55,10 @@ if __name__ == '__main__':
     batch_size = 32
     lr = 0.01
 
-    data_transform = Compose([ToTensor(), Normalize((0.1307,), (0.3081,))])
-    train_dataset = mnist.MNIST(root='./', train=True, transform=data_transform, download=True)
-    test_dataset = mnist.MNIST(root='./', train=False, transform=data_transform, download=True)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size)
+    train_dataset = XRDData(root='./', train=True)
+    test_dataset = mnist.MNIST(root='./', train=False)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr)
