@@ -41,7 +41,7 @@ class ConvNet1D(nn.Module):
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.Flatten(1))
-        self.fc = nn.Linear(7*7*32, num_classes)
+        self.fc = nn.Linear(14400, num_classes)
 
     def forward(self, x):
         out = self.layer1(x)
@@ -64,7 +64,7 @@ class ConvNet2D(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Flatten(1))
-        self.fc = nn.Linear(14400, num_classes)
+        self.fc = nn.Linear(7*7*32, num_classes)
 
     def forward(self, x):
         out = self.layer1(x)
