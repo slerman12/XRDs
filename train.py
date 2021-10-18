@@ -81,7 +81,7 @@ model = nn.Sequential(nn.Linear(3600, 512), nn.ReLU(),
 
 # model = ConvNet1D()
 
-writer = SummaryWriter(log_dir=log_dir)
+writer = SummaryWriter(log_dir=args.log_dir)
 
 
 if __name__ == '__main__':
