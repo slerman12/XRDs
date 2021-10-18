@@ -10,6 +10,7 @@ from torchvision.transforms import ToTensor, Normalize, Compose
 import torch
 from torch import nn
 from torch.nn import functional as F
+from torch.utils.tensorboard import SummaryWriter
 
 seed = 1
 torch.manual_seed(seed)
@@ -19,9 +20,9 @@ classification = True
 conv = False
 
 
-class ConvNet(nn.Module):
+class ConvNet2D(nn.Module):
     def __init__(self, num_classes=10):
-        super(ConvNet, self).__init__()
+        super(ConvNet2D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
             nn.BatchNorm2d(16),
@@ -42,25 +43,11 @@ class ConvNet(nn.Module):
         return out
 
 
-
-class AdaptiveAvgPool1d(_AdaptiveAvgPoolNd):
-    def forward(self, inputs: torch.Tensor) -> torch.Tensor:
-        return F.adaptive_avg_pool1d(inputs.unsqueeze(1), self.output_size).squeeze(1)
-
-
-# conv = True
-# model = ConvNet(10)
-# model = nn.Sequential(nn.Linear(784, 128), nn.ReLU(),
-#                       nn.Linear(128, 64), nn.ReLU(),
-#                       nn.Linear(64, 100),
-#                       AdaptiveAvgPool1d(10))
-# model = nn.Sequential(nn.Linear(784, 128), nn.ReLU(),
-#                       nn.Linear(128, 64), nn.ReLU(),
-#                       nn.Linear(64, 1000),
-#                       AdaptiveAvgPool1d(10))
 model = nn.Sequential(nn.Linear(784, 128), nn.ReLU(),
                       nn.Linear(128, 64), nn.ReLU(),
                       nn.Linear(64, 10))
+
+writer = SummaryWriter()
 
 
 if __name__ == '__main__':
@@ -98,6 +85,10 @@ if __name__ == '__main__':
             if i % log_interval == 0:
                 print('epoch: {}, loss: {:.5f}, acc: {}/{} ({:.0f}%)'.format(epoch, loss_stat / log_interval, correct,
                                                                              total, 100. * correct / total))
+
+                writer.add_scalar('Train/Loss', loss_stat / log_interval, epoch * len(train_loader) + i)
+                writer.add_scalar('Train/Acc', 100. * correct / total, epoch * len(train_loader) + i)
+
                 loss_stat = correct = total = 0
 
             optim.zero_grad()
@@ -118,3 +109,8 @@ if __name__ == '__main__':
 
         print('epoch: {}, accuracy: {}/{} ({:.0f}%)'.format(epoch, correct, total, 100. * correct / total))
         print('time: {}'.format(time.time() - start_time))
+
+        writer.add_scalar('Test/Loss', loss_stat / log_interval, (epoch + 1) * len(train_loader))
+        writer.add_scalar('Test/Acc', 100. * correct / total, (epoch + 1) * len(train_loader))
+
+    writer.flush()
