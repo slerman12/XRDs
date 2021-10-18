@@ -76,7 +76,7 @@ writer = SummaryWriter()
 
 
 if __name__ == '__main__':
-    epochs = 50
+    epochs = 1000
     log_interval = 1000
     batch_size = 32
     lr = 0.01
