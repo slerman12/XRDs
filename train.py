@@ -55,8 +55,8 @@ if __name__ == '__main__':
     batch_size = 32
     lr = 0.01
 
-    train_dataset = XRDData(root='./', train=True)
-    test_dataset = mnist.MNIST(root='./', train=False)
+    train_dataset = XRDData(root='./xrd_data', train=True)
+    test_dataset = XRDData(root='./xrd_data', train=False)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
