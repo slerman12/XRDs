@@ -20,8 +20,31 @@ classification = True
 conv = False
 
 
+class ConvNet1D(nn.Module):
+    def __init__(self, num_classes=6):
+        super(ConvNet1D, self).__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv1d(2, 16, kernel_size=5, stride=1, padding=2),
+            nn.BatchNorm2d(16),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2))
+        self.layer2 = nn.Sequential(
+            nn.Conv1d(16, 32, kernel_size=5, stride=1, padding=2),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Flatten(1))
+        self.fc = nn.Linear(7*7*32, num_classes)
+
+    def forward(self, x):
+        out = self.layer1(x)
+        out = self.layer2(out)
+        out = self.fc(out)
+        return out
+
+
 class ConvNet2D(nn.Module):
-    def __init__(self, num_classes=10):
+    def __init__(self, num_classes=6):
         super(ConvNet2D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
@@ -43,9 +66,11 @@ class ConvNet2D(nn.Module):
         return out
 
 
-model = nn.Sequential(nn.Linear(784, 128), nn.ReLU(),
-                      nn.Linear(128, 64), nn.ReLU(),
-                      nn.Linear(64, 6))
+# model = nn.Sequential(nn.Linear(784, 128), nn.ReLU(),
+#                       nn.Linear(128, 64), nn.ReLU(),
+#                       nn.Linear(64, 6))
+
+model = ConvNet1D()
 
 writer = SummaryWriter()
 
