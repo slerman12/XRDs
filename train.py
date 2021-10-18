@@ -118,7 +118,8 @@ if __name__ == '__main__':
     for epoch in range(epochs):
         for i, (x, y) in enumerate(train_loader):
             x = x.float()
-            print(torch.isnan(x).sum())
+            # print(torch.isnan(x).sum())
+            x[torch.isnan(x)] = 0
             assert torch.nonzero(x).any()
             assert not torch.isinf(x).any()
             assert not torch.isnan(x).any()
