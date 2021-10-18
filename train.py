@@ -118,6 +118,7 @@ if __name__ == '__main__':
     for epoch in range(epochs):
         for i, (x, y) in enumerate(train_loader):
             x = x.float()
+            print(x)
             assert torch.nonzero(x).any()
             assert not torch.isinf(x).any()
             assert not torch.isnan(x).any()
