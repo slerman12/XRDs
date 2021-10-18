@@ -39,23 +39,21 @@ class XRDDataFast(Dataset):
             for file in files:
                 with open(file) as f:
                     lines = f.readlines()[3:]
-                    self.xrds[class_name] = lines, len(self.xrds[class_name])
+                    self.xrds[class_name] = lines
+                    total_size = len(lines)
+                    train_size = round(total_size * train_test_split)
+                    if train:
+                        self.size += train_size
+                    else:
+                        self.size = total_size - train_size
         self.train = train
         self.train_test_split = train_test_split
 
     def __len__(self):
-        size = 0
-        for class_name in self.xrds:
-            for lines in self.xrds:
-                total_size = len(lines)
-                train_size = round(total_size * self.train_test_split)
-                if self.train:
-                    size += train_size
-                else:
-                    size = total_size - train_size
-        return size
+        return self.size
 
     def __getitem__(self, idx):
+        # todo index and train/test split
         for class_name in self.xrds:
             for y, lines in enumerate(self.xrds):
                 lines = [list(map(float, line.strip().split(", "))) for line in lines]
