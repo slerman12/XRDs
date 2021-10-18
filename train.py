@@ -14,7 +14,7 @@ from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
 
 
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser()
 parser.add_argument('--log_dir', default="runs", type=str, help='logging directory')
 args = parser.parse_args()
 
