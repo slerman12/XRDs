@@ -24,7 +24,7 @@ torch.manual_seed(seed)
 random.seed(seed)
 
 classification = True
-conv = True
+conv = False
 
 
 class ConvNet1D(nn.Module):
