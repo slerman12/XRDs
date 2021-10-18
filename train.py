@@ -118,7 +118,9 @@ if __name__ == '__main__':
     for epoch in range(epochs):
         for i, (x, y) in enumerate(train_loader):
             x = x.float()
-            assert not torch.isnan(x).any() and not torch.isinf(x).any() and torch.nonzero(x).any()
+            assert not torch.isnan(x).any()
+            assert not torch.isinf(x).any()
+            assert torch.nonzero(x).any()
             if not conv:
                 x = torch.flatten(x, start_dim=1)
             # one_hot = F.one_hot(y, num_classes=10).float()
