@@ -66,7 +66,8 @@ class ConvNet2D(nn.Module):
         return out
 
 
-model = nn.Sequential(nn.Linear(3600, 128), nn.ReLU(),
+model = nn.Sequential(nn.Linear(3600, 512), nn.ReLU(),
+                      nn.Linear(256, 128), nn.ReLU(),
                       nn.Linear(128, 64), nn.ReLU(),
                       nn.Linear(64, 6))
 
