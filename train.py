@@ -24,7 +24,7 @@ torch.manual_seed(seed)
 random.seed(seed)
 
 classification = True
-conv = False
+conv = True
 
 
 class ConvNet1D(nn.Module):
@@ -79,9 +79,9 @@ class ConvNet2D(nn.Module):
 #                       nn.Linear(128, 64), nn.ReLU(),
 #                       nn.Linear(64, 6))
 
-# model = ConvNet1D()
+model = ConvNet1D()
 
-model = nn.Sequential(nn.Linear(3600, 6))
+# model = nn.Sequential(nn.Linear(3600, 6))
 
 writer = SummaryWriter(log_dir=args.log_dir)
 
@@ -138,6 +138,9 @@ if __name__ == '__main__':
                 x = torch.flatten(x, start_dim=1)
             else:
                 x = x.transpose(1, 2)
+                assert x.shape[0] == 32
+                assert x.shape[1] == 2
+                assert x.shape[2] == 1800
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
             loss = cost(y_pred, y)
