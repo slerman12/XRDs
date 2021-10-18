@@ -1,3 +1,4 @@
+import glob
 import random
 import time
 
@@ -44,7 +45,7 @@ class ConvNet2D(nn.Module):
 
 model = nn.Sequential(nn.Linear(784, 128), nn.ReLU(),
                       nn.Linear(128, 64), nn.ReLU(),
-                      nn.Linear(64, 10))
+                      nn.Linear(64, 6))
 
 writer = SummaryWriter()
 
@@ -55,10 +56,19 @@ if __name__ == '__main__':
     batch_size = 32
     lr = 0.01
 
-    train_dataset = XRDData(root='./xrd_data', train=True)
-    test_dataset = XRDData(root='./xrd_data', train=False)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
+    saved = glob.glob("./*.pt")
+    if './train_loader.pt' in saved and './test_loader.pt' in saved:
+        train_loader = torch.load('train_loader.pt')
+        test_loader = torch.load('test_loader.pt')
+    else:
+        train_test_split = 0.9
+        train_dataset = XRDData(root='xrd_data', train=True, train_test_split=train_test_split)
+        test_dataset = XRDData(root='xrd_data', train=False, train_test_split=train_test_split)
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
+
+        torch.save(train_loader, 'train_loader.pt')
+        torch.save(test_loader, 'test_loader.pt')
 
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr)
