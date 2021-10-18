@@ -57,17 +57,21 @@ if __name__ == '__main__':
     lr = 0.01
 
     saved = glob.glob("./*.pt")
-    if './train_loader.pt' in saved and './test_loader.pt' in saved:
+    train_test_split = 0.9
+    if './train_loader.pt' in saved:
         train_loader = torch.load('train_loader.pt')
-        test_loader = torch.load('test_loader.pt')
     else:
-        train_test_split = 0.9
         train_dataset = XRDData(root='xrd_data', train=True, train_test_split=train_test_split)
-        test_dataset = XRDData(root='xrd_data', train=False, train_test_split=train_test_split)
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
         torch.save(train_loader, 'train_loader.pt')
+
+    if './test_loader.pt' in saved:
+        test_loader = torch.load('test_loader.pt')
+    else:
+        test_dataset = XRDData(root='xrd_data', train=False, train_test_split=train_test_split)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
+
         torch.save(test_loader, 'test_loader.pt')
 
     optim = SGD(model.parameters(), lr=lr)
