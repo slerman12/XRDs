@@ -1,6 +1,7 @@
 import glob
 import torch
 from torch.utils.data import Dataset
+from tqdm import tqdm
 
 
 class XRDData(Dataset):
@@ -10,7 +11,7 @@ class XRDData(Dataset):
         for y, class_name in enumerate(sub_dirs):
             class_data = []
             files = glob.glob(class_name + "/*")
-            for file in files:
+            for file in tqdm(files, desc="Reading " + class_name):
                 with open(file) as f:
                     lines = f.readlines()[3:]
                     lines = [list(map(float, line.strip().split(", "))) for line in lines]
