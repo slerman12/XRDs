@@ -90,7 +90,7 @@ if __name__ == '__main__':
     epochs = 1000
     log_interval = 1000
     batch_size = 32
-    lr = 0.1
+    lr = 0.01
 
     saved = glob.glob("./*.pt")
     train_test_split = 0.9
@@ -118,9 +118,9 @@ if __name__ == '__main__':
         torch.save(test_loader, 'test_loader.pt')
         print("done")
 
-    # optim = SGD(model.parameters(), lr=lr)
-    optim = AdamW(model.parameters(), lr=lr)
-    scheduler = ExponentialLR(optim, gamma=0.9)
+    optim = SGD(model.parameters(), lr=lr)
+    # optim = AdamW(model.parameters(), lr=lr)
+    # scheduler = ExponentialLR(optim, gamma=0.9)
     cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
 
     loss_stat = correct = total = 0
@@ -131,7 +131,7 @@ if __name__ == '__main__':
             x = x.float()
             # print(torch.isnan(x).sum())
             x[torch.isnan(x)] = 0
-            if torch.nonzero(x).any():
+            if not torch.nonzero(x).any():
                 continue
             if torch.isinf(x).any():
                 continue
@@ -163,7 +163,7 @@ if __name__ == '__main__':
             optim.zero_grad()
             loss.backward()
             optim.step()
-        scheduler.step()
+        # scheduler.step()
 
         correct = total = 0
 
