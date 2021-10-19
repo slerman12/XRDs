@@ -118,9 +118,9 @@ if __name__ == '__main__':
         torch.save(test_loader, 'test_loader.pt')
         print("done")
 
-    optim = SGD(model.parameters(), lr=lr)
-    # optim = AdamW(model.parameters(), lr=lr)
-    # scheduler = ExponentialLR(optim, gamma=0.9)
+    # optim = SGD(model.parameters(), lr=lr)
+    optim = AdamW(model.parameters(), lr=lr)
+    scheduler = ExponentialLR(optim, gamma=0.9)
     cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
 
     loss_stat = correct = total = 0
@@ -163,7 +163,7 @@ if __name__ == '__main__':
             optim.zero_grad()
             loss.backward()
             optim.step()
-        # scheduler.step()
+        scheduler.step()
 
         correct = total = 0
 
