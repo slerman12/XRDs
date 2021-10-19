@@ -169,6 +169,12 @@ if __name__ == '__main__':
 
         for i, (x, y) in enumerate(test_loader):
             x = x.float()
+            if not torch.nonzero(x).any():
+                continue
+            if torch.isinf(x).any():
+                continue
+            if torch.isnan(x).any():
+                continue
             if not conv:
                 x = torch.flatten(x, start_dim=1)
             else:
