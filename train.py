@@ -79,9 +79,9 @@ class ConvNet2D(nn.Module):
 #                       nn.Linear(128, 64), nn.ReLU(),
 #                       nn.Linear(64, 6))
 
-# model = ConvNet1D()
+model = ConvNet1D()
 
-model = nn.Sequential(nn.Linear(3600, 6))
+# model = nn.Sequential(nn.Linear(3600, 6))
 
 writer = SummaryWriter(log_dir=args.log_dir)
 
@@ -131,9 +131,12 @@ if __name__ == '__main__':
             x = x.float()
             # print(torch.isnan(x).sum())
             x[torch.isnan(x)] = 0
-            assert torch.nonzero(x).any()
-            assert not torch.isinf(x).any()
-            assert not torch.isnan(x).any()
+            if torch.nonzero(x).any():
+                continue
+            if torch.isinf(x).any():
+                continue
+            if torch.isnan(x).any():
+                continue
             if not conv:
                 x = torch.flatten(x, start_dim=1)
             else:
