@@ -171,6 +171,11 @@ if __name__ == '__main__':
             x = x.float()
             if not conv:
                 x = torch.flatten(x, start_dim=1)
+            else:
+                x = x.transpose(1, 2)
+                assert x.shape[0] == 32
+                assert x.shape[1] == 2
+                assert x.shape[2] == 1800
             y_pred = model(x).detach()
 
             correct += (torch.argmax(y_pred, dim=-1) == y).sum().item()
