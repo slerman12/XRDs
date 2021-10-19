@@ -15,7 +15,8 @@ from torch.utils.tensorboard import SummaryWriter
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--log_dir', default="runs", type=str, help='logging directory')
+parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
+parser.add_argument('--num-workers', default=0, type=str, help='number data loading workers')
 args = parser.parse_args()
 
 
@@ -101,7 +102,7 @@ if __name__ == '__main__':
     else:
         print("parsing train...")
         train_dataset = XRDData(root='xrd_data', train=True, train_test_split=train_test_split)
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
 
         torch.save(train_loader, 'train_loader.pt')
         print("done")
@@ -113,7 +114,7 @@ if __name__ == '__main__':
     else:
         print("parsing test...")
         test_dataset = XRDData(root='xrd_data', train=False, train_test_split=train_test_split)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
         torch.save(test_loader, 'test_loader.pt')
         print("done")
