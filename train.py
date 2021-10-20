@@ -16,7 +16,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
-parser.add_argument('--num-workers', default=0, type=str, help='number data loading workers')
+parser.add_argument('--num-workers', default=0, type=int, help='number data loading workers')
 args = parser.parse_args()
 
 
