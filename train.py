@@ -25,7 +25,7 @@ torch.manual_seed(seed)
 random.seed(seed)
 
 classification = True
-conv = True
+conv = False
 
 
 class ConvNet1D(nn.Module):
@@ -74,13 +74,13 @@ class ConvNet2D(nn.Module):
         return out
 
 
-# model = nn.Sequential(nn.Linear(3600, 512), nn.ReLU(),
-#                       nn.Linear(512, 256), nn.ReLU(),
-#                       nn.Linear(256, 128), nn.ReLU(),
-#                       nn.Linear(128, 64), nn.ReLU(),
-#                       nn.Linear(64, 6))
+model = nn.Sequential(nn.Linear(3600, 512), nn.ReLU(),
+                      nn.Linear(512, 256), nn.ReLU(),
+                      nn.Linear(256, 128), nn.ReLU(),
+                      nn.Linear(128, 64), nn.ReLU(),
+                      nn.Linear(64, 6))
 
-model = ConvNet1D()
+# model = ConvNet1D()
 
 # model = nn.Sequential(nn.Linear(3600, 6))
 
