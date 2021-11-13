@@ -80,9 +80,9 @@ class ConvNet2D(nn.Module):
 #                       nn.Linear(128, 64), nn.ReLU(),
 #                       nn.Linear(64, 7))
 
-# model = ConvNet1D()
+model = ConvNet1D()
 
-model = nn.Sequential(nn.Linear(1800, 7))
+# model = nn.Sequential(nn.Linear(1800, 7))
 
 writer = SummaryWriter(log_dir=args.log_dir)
 
