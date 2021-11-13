@@ -77,16 +77,16 @@ class ConvNet2D(nn.Module):
         return out
 
 
-# model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
-#                       nn.Linear(512, 256), nn.ReLU(),
-#                       nn.Linear(256, 128), nn.ReLU(),
-#                       nn.Linear(128, 64), nn.ReLU(),
-#                       nn.Linear(64, 7))
+model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
+                      nn.Linear(512, 256), nn.ReLU(),
+                      nn.Linear(256, 128), nn.ReLU(),
+                      nn.Linear(128, 64), nn.ReLU(),
+                      nn.Linear(64, 7))
 
 # model = ConvNet1D()
 # conv = True
 
-model = nn.Sequential(nn.Linear(1800, 7))
+# model = nn.Sequential(nn.Linear(1800, 7))
 
 writer = SummaryWriter(log_dir=args.log_dir)
 
