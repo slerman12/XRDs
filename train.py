@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
+parser.add_argument('--name', default="dnn", type=str, help='logging directory')
 parser.add_argument('--num-workers', default=0, type=int, help='number data loading workers')
 args = parser.parse_args()
 
@@ -77,18 +78,21 @@ class ConvNet2D(nn.Module):
         return out
 
 
-model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
-                      nn.Linear(512, 256), nn.ReLU(),
-                      nn.Linear(256, 128), nn.ReLU(),
-                      nn.Linear(128, 64), nn.ReLU(),
-                      nn.Linear(64, 7))
+if "dnn" in args.name:
+    model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
+                          nn.Linear(512, 256), nn.ReLU(),
+                          nn.Linear(256, 128), nn.ReLU(),
+                          nn.Linear(128, 64), nn.ReLU(),
+                          nn.Linear(64, 7))
+elif "cnn" in args.name:
+    model = ConvNet1D()
+    conv = True
+elif "logreg" in args.name:
+    model = nn.Sequential(nn.Linear(1800, 7))
+else:
+    assert False
 
-# model = ConvNet1D()
-# conv = True
-
-# model = nn.Sequential(nn.Linear(1800, 7))
-
-writer = SummaryWriter(log_dir=args.log_dir)
+writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 
 if __name__ == '__main__':
@@ -217,6 +221,6 @@ if __name__ == '__main__':
         plt.xlabel('Predictions', fontsize=18)
         plt.ylabel('Actuals', fontsize=18)
         plt.title('Confusion Matrix', fontsize=18)
-        plt.show()
+        plt.savefig(f'{args.name}')
 
     writer.flush()
