@@ -6,10 +6,13 @@ from tqdm import tqdm
 
 class XRDData(Dataset):
     def __init__(self, root, train=True, train_test_split=0.9):
-        self.xrds = []
+        self.num_datapoints = 43049
+        self.size = train_size = round(self.num_datapoints * self.train_test_split)
+        if not self.train:
+            self.size = self.num_datapoints - train_size
+
         self.feature_file = root + "/43049_features.csv"
         self.label_file = root + "/43049_labels.csv"
-        self.num_datapoints = 43049
         self.train_test_split = train_test_split
         self.train = train
 
@@ -18,12 +21,7 @@ class XRDData(Dataset):
         with open(self.label_file) as f:
             self.label_lines = f.readlines()
 
-        self.size = train_size = round(self.num_datapoints * self.train_test_split)
-        if not self.train:
-            self.size = self.num_datapoints - train_size
-
     def __len__(self):
-        print(self.xrds)
         return self.size
 
     def __getitem__(self, idx):
