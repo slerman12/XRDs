@@ -18,9 +18,9 @@ class XRDData(Dataset):
             self.label_lines = f.readlines()
 
     def __len__(self):
-        size = train_size = round(self.num_datapoints * self.train_test_split)
+        size = train_size = round(43049 * self.train_test_split)
         if not self.train:
-            size = self.num_datapoints - train_size
+            size = 43049 - train_size
         return size
 
     def __getitem__(self, idx):
