@@ -96,7 +96,7 @@ writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 
 if __name__ == '__main__':
-    epochs = 1000
+    epochs = 100
     log_interval = 1000
     batch_size = 32
     lr = 0.01
@@ -191,15 +191,15 @@ if __name__ == '__main__':
                 assert x.shape[2] == 1800
             y_pred = model(x).detach()
 
-            if y_pred_all is None:
-                y_pred_all = y_pred
-            else:
-                y_pred_all = torch.cat([y_pred_all, y_pred], dim=0)
-
-            if y_test_all is None:
-                y_test_all = y
-            else:
-                y_test_all = torch.cat([y_test_all, y], dim=0)
+            if epoch == epochs - 1:
+                if y_pred_all is None:
+                    y_pred_all = y_pred
+                else:
+                    y_pred_all = torch.cat([y_pred_all, y_pred], dim=0)
+                if y_test_all is None:
+                    y_test_all = y
+                else:
+                    y_test_all = torch.cat([y_test_all, y], dim=0)
 
             correct += (torch.argmax(y_pred, dim=-1) == y).sum().item()
             total += y.shape[0]
@@ -210,17 +210,19 @@ if __name__ == '__main__':
         writer.add_scalar('Test/Loss', loss_stat / log_interval, (epoch + 1) * len(train_loader))
         writer.add_scalar('Test/Acc', 100. * correct / total, (epoch + 1) * len(train_loader))
 
-        conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
+    y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
+    y_pred_all = torch.nn.functional.one_hot(y_pred_all, num_classes=7)
+    conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
 
-        fig, ax = plt.subplots(figsize=(5, 5))
-        ax.matshow(conf_matrix, cmap=plt.cm.Oranges, alpha=0.3)
-        for i in range(conf_matrix.shape[0]):
-            for j in range(conf_matrix.shape[1]):
-                ax.text(x=j, y=i, s=conf_matrix[i, j], va='center', ha='center', size='xx-large')
+    fig, ax = plt.subplots(figsize=(5, 5))
+    ax.matshow(conf_matrix, cmap=plt.cm.Oranges, alpha=0.3)
+    for i in range(conf_matrix.shape[0]):
+        for j in range(conf_matrix.shape[1]):
+            ax.text(x=j, y=i, s=conf_matrix[i, j], va='center', ha='center', size='xx-large')
 
-        plt.xlabel('Predictions', fontsize=18)
-        plt.ylabel('Actuals', fontsize=18)
-        plt.title('Confusion Matrix', fontsize=18)
-        plt.savefig(f'{args.name}')
+    plt.xlabel('Predictions', fontsize=18)
+    plt.ylabel('Actuals', fontsize=18)
+    plt.title('Confusion Matrix', fontsize=18)
+    plt.savefig(f'{args.name}')
 
     writer.flush()
