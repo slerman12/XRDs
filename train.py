@@ -29,7 +29,7 @@ conv = False
 
 
 class ConvNet1D(nn.Module):
-    def __init__(self, num_classes=6):
+    def __init__(self, num_classes=7):
         super(ConvNet1D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv1d(2, 16, kernel_size=5, stride=1, padding=2),
@@ -74,15 +74,15 @@ class ConvNet2D(nn.Module):
         return out
 
 
-model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
-                      nn.Linear(512, 256), nn.ReLU(),
-                      nn.Linear(256, 128), nn.ReLU(),
-                      nn.Linear(128, 64), nn.ReLU(),
-                      nn.Linear(64, 7))
+# model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
+#                       nn.Linear(512, 256), nn.ReLU(),
+#                       nn.Linear(256, 128), nn.ReLU(),
+#                       nn.Linear(128, 64), nn.ReLU(),
+#                       nn.Linear(64, 7))
 
-# model = ConvNet1D()
+model = ConvNet1D()
 
-# model = nn.Sequential(nn.Linear(3600, 6))
+# model = nn.Sequential(nn.Linear(1800, 7))
 
 writer = SummaryWriter(log_dir=args.log_dir)
 
@@ -138,11 +138,10 @@ if __name__ == '__main__':
                 continue
             if torch.isnan(x).any():
                 continue
-            if not conv:
-                x = torch.flatten(x, start_dim=1)
-            else:
-                x = x.transpose(1, 2)
-                assert x.shape[1] == 2
+            x = torch.flatten(x, start_dim=1)
+            if conv:
+                x = x.unsqueeze(1)
+                assert x.shape[1] == 1
                 assert x.shape[2] == 1800
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
@@ -175,11 +174,10 @@ if __name__ == '__main__':
                 continue
             if torch.isnan(x).any():
                 continue
-            if not conv:
-                x = torch.flatten(x, start_dim=1)
-            else:
-                x = x.transpose(1, 2)
-                assert x.shape[1] == 2
+            x = torch.flatten(x, start_dim=1)
+            if conv:
+                x = x.unsqueeze(1)
+                assert x.shape[1] == 1
                 assert x.shape[2] == 1800
             y_pred = model(x).detach()
 
