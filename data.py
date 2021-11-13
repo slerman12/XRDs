@@ -6,15 +6,49 @@ from tqdm import tqdm
 
 class XRDData(Dataset):
     def __init__(self, root, train=True, train_test_split=0.9):
+        self.feature_file = root + "/43049_features.csv"
+        self.label_file = root + "/43049_labels.csv"
+        self.num_datapoints = 43049
+        self.train_test_split = train_test_split
+        self.train = train
+
+        with open(self.feature_file) as f:
+            self.feature_lines = f.readlines()
+        with open(self.label_file) as f:
+            self.label_lines = f.readlines()
+
+    def __len__(self):
+        size = train_size = round(self.num_datapoints * self.train_test_split)
+        if not self.train:
+            size = self.num_datapoints - train_size
+        return size
+
+    def __getitem__(self, idx):
+        if not self.train:
+            idx = idx + round(self.num_datapoints * self.train_test_split)
+        line = self.feature_lines[idx]
+        x = list(map(float, line.strip().split(", ")))
+        x = torch.FloatTensor(x)
+        line = self.label_lines[idx]
+        y = list(map(float, line.strip().split(", ")))
+        y = torch.FloatTensor(y)
+        y = torch.argmax(y)
+        return x, y
+
+
+class XRDDataOld(Dataset):
+    def __init__(self, root, train=True, train_test_split=0.9):
         self.xrds = []
         sub_dirs = glob.glob(root + "/*/")
-        for y, class_name in enumerate(sub_dirs):
+        for class_name in sub_dirs:
             files = glob.glob(class_name + "/*")
             files = files[:round(len(files) * train_test_split)] if train \
                 else files[round(len(files) * train_test_split):]
             for file in tqdm(files, desc="Reading " + class_name):
                 with open(file) as f:
-                    lines = f.readlines()[3:]
+                    lines = f.readlines()
+                    y = int(lines[1][-1])
+                    lines = lines[3:]
                     lines = [list(map(float, line.strip().split(", "))) for line in lines]
                     x = torch.FloatTensor(lines)
                     if torch.isnan(x).any():
