@@ -81,6 +81,7 @@ class ConvNet2D(nn.Module):
 #                       nn.Linear(64, 7))
 
 model = ConvNet1D()
+conv = True
 
 # model = nn.Sequential(nn.Linear(1800, 7))
 
