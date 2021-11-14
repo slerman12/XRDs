@@ -124,9 +124,10 @@ else:
 writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 if conv:
-    summary(model, (1, 1800))
     if paper:
         summary(model, (1, 1, 1, 1800))
+    else:
+        summary(model, (1, 1800))
 
 
 if __name__ == '__main__':
