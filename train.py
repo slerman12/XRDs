@@ -226,6 +226,6 @@ if __name__ == '__main__':
     plt.xlabel('Predictions', fontsize=18)
     plt.ylabel('Actuals', fontsize=18)
     plt.title('Confusion Matrix', fontsize=18)
-    plt.savefig(f'{args.name}')
+    plt.savefig(f"{args.log_dir}/{args.name}/conf_matrix.png")
 
     writer.flush()
