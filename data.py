@@ -18,7 +18,7 @@ class XRDData(Dataset):
         self.train = train
 
         self.train_inds = np.random.choice(np.arange(self.num_datapoints), size=train_size, replace=False)
-        self.test_inds = np.delete(np.arange(self.num_datapoints), self.train_inds)
+        self.test_inds = np.array([x for x in np.arange(self.num_datapoints) if x not in self.train_inds])
 
         with open(self.feature_file) as f:
             self.feature_lines = f.readlines()
