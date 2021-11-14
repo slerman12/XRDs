@@ -147,7 +147,7 @@ if __name__ == '__main__':
         train_dataset = XRDData(root='xrd_data/47049', train=True, train_test_split=train_test_split)
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
 
-        torch.save(train_loader, 'train_loader.pt')
+        # torch.save(train_loader, 'train_loader.pt')
         print("done")
 
     if './test_loader.pt' in saved and False:
@@ -159,7 +159,7 @@ if __name__ == '__main__':
         test_dataset = XRDData(root='xrd_data/47049', train=False, train_test_split=train_test_split)
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
-        torch.save(test_loader, 'test_loader.pt')
+        # torch.save(test_loader, 'test_loader.pt')
         print("done")
 
     optim = SGD(model.parameters(), lr=lr)
