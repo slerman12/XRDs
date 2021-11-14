@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
     saved = glob.glob("./*.pt")
     train_test_split = 0.9
-    if './train_loader.pt' in saved:
+    if './train_loader.pt' in saved and False:
         print("loading train...")
         train_loader = torch.load('train_loader.pt')
         print("done")
@@ -150,7 +150,7 @@ if __name__ == '__main__':
         torch.save(train_loader, 'train_loader.pt')
         print("done")
 
-    if './test_loader.pt' in saved:
+    if './test_loader.pt' in saved and False:
         print("loading test...")
         test_loader = torch.load('test_loader.pt')
         print("done")

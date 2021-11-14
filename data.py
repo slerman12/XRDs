@@ -2,6 +2,7 @@ import glob
 import torch
 from torch.utils.data import Dataset
 from tqdm import tqdm
+import numpy as np
 
 
 class XRDData(Dataset):
@@ -16,6 +17,9 @@ class XRDData(Dataset):
         self.train_test_split = train_test_split
         self.train = train
 
+        self.train_inds = np.random.choice(np.arange(self.num_datapoints), size=train_size, replace=False)
+        self.test_inds = np.delete(np.arange(self.num_datapoints), self.train_inds)
+
         with open(self.feature_file) as f:
             self.feature_lines = f.readlines()
         with open(self.label_file) as f:
@@ -25,8 +29,12 @@ class XRDData(Dataset):
         return self.size
 
     def __getitem__(self, idx):
-        if not self.train:
-            idx = idx + round(self.num_datapoints * self.train_test_split)
+        if self.train:
+            idx = self.train_inds[idx]
+        else:
+            idx = self.test_inds[idx]
+        # if not self.train:
+        #     idx = idx + round(self.num_datapoints * self.train_test_split)
         line = self.feature_lines[idx]
         x = list(map(float, line.strip().split(", ")))
         x = torch.FloatTensor(x)
