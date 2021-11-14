@@ -109,7 +109,7 @@ if "dnn" in args.name:
                           nn.Linear(128, 64), nn.ReLU(),
                           nn.Linear(64, 7))
 elif "cnn" in args.name:
-    model = ConvNet1D()
+    model = ConvNet1DPaper()
     conv = True
 elif "logreg" in args.name:
     model = nn.Sequential(nn.Linear(1800, 7))
@@ -117,6 +117,9 @@ else:
     assert False
 
 writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
+
+if conv:
+    summary(model, (32, 1, 1800))
 
 
 if __name__ == '__main__':
@@ -176,8 +179,6 @@ if __name__ == '__main__':
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
                 assert x.shape[2] == 1800
-            if i == 0:
-                summary(model, x)
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
             loss = cost(y_pred, y)
