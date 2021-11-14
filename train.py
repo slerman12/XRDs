@@ -12,6 +12,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
+from torchsummary import summary
 
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
@@ -30,6 +31,29 @@ random.seed(seed)
 
 classification = True
 conv = False
+
+
+class ConvNet1DPaper(nn.Module):
+    def __init__(self, num_classes=7):
+        super(ConvNet1DPaper, self).__init__()
+        self.cnn = nn.Sequential(
+            nn.Conv1d(1, 80, kernel_size=(100, 1, 1), stride=5),
+            nn.AvgPool1d(kernel_size=3, stride=2),
+            nn.Conv1d(1, 80, kernel_size=(50, 1, 80), stride=5),
+            nn.AvgPool1d(kernel_size=3, stride=1),
+            nn.Conv1d(1, 80, kernel_size=(25, 1, 80), stride=2),
+            nn.AvgPool1d(kernel_size=3, stride=1),
+            nn.Flatten(1)
+        )
+        self.fc = nn.Sequential(
+            nn.Linear(880, 700),
+            nn.Linear(700, 70),
+            nn.Linear(70, num_classes))
+
+    def forward(self, x):
+        out = self.cnn(x)
+        out = self.fc(out)
+        return out
 
 
 class ConvNet1D(nn.Module):
@@ -152,6 +176,8 @@ if __name__ == '__main__':
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
                 assert x.shape[2] == 1800
+            if i == 0:
+                summary(model, x)
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
             loss = cost(y_pred, y)
