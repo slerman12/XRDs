@@ -109,10 +109,10 @@ if "dnn" in args.name:
                           nn.Linear(256, 128), nn.ReLU(),
                           nn.Linear(128, 64), nn.ReLU(),
                           nn.Linear(64, 7))
-elif "cnn" in args.name:
-    model = ConvNet1DPaper()
+elif args.name == "cnn":
+    model = ConvNet1D()
     conv = True
-elif "cnnp" in args.name:
+elif args.name == "cnnp":
     model = ConvNet1DPaper()
     conv = True
     paper = True
