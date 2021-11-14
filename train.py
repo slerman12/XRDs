@@ -39,11 +39,11 @@ class ConvNet1DPaper(nn.Module):
         super(ConvNet1DPaper, self).__init__()
         self.cnn = nn.Sequential(
             nn.Conv1d(1, 80, kernel_size=(100, 1, 1), stride=5),
-            nn.AvgPool1d(kernel_size=3, stride=2),
+            nn.AvgPool1d(kernel_size=(3, 1, 1), stride=2),
             nn.Conv1d(1, 80, kernel_size=(50, 1, 80), stride=5),
-            nn.AvgPool1d(kernel_size=3, stride=1),
+            nn.AvgPool1d(kernel_size=(3, 1, 1), stride=1),
             nn.Conv1d(1, 80, kernel_size=(25, 1, 80), stride=2),
-            nn.AvgPool1d(kernel_size=3, stride=1),
+            nn.AvgPool1d(kernel_size=(3, 1, 1), stride=1),
             nn.Flatten(1)
         )
         self.fc = nn.Sequential(
