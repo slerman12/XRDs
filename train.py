@@ -125,7 +125,7 @@ writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 if conv:
     if paper:
-        summary(model, (1800, 1, 1))
+        summary(model, (1, 1800))
     else:
         summary(model, (1, 1800))
 
