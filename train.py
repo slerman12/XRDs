@@ -31,13 +31,14 @@ random.seed(seed)
 
 classification = True
 conv = False
+paper = False
 
 
 class ConvNet1DPaper(nn.Module):
     def __init__(self, num_classes=7):
         super(ConvNet1DPaper, self).__init__()
         self.cnn = nn.Sequential(
-            nn.Conv1d(1, 80, kernel_size=100, stride=5),
+            nn.Conv1d(1, 80, kernel_size=(100, 1, 1), stride=5),
             nn.AvgPool1d(kernel_size=3, stride=2),
             nn.Conv1d(1, 80, kernel_size=(50, 1, 80), stride=5),
             nn.AvgPool1d(kernel_size=3, stride=1),
@@ -111,6 +112,10 @@ if "dnn" in args.name:
 elif "cnn" in args.name:
     model = ConvNet1DPaper()
     conv = True
+elif "cnnp" in args.name:
+    model = ConvNet1DPaper()
+    conv = True
+    paper = True
 elif "logreg" in args.name:
     model = nn.Sequential(nn.Linear(1800, 7))
 else:
@@ -179,6 +184,9 @@ if __name__ == '__main__':
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
                 assert x.shape[2] == 1800
+                if paper:
+                    x = x.unsqueeze(1).unsqueeze(1)
+
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
             loss = cost(y_pred, y)
