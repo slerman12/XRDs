@@ -96,7 +96,7 @@ writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 
 if __name__ == '__main__':
-    epochs = 100
+    epochs = 1
     log_interval = 1000
     batch_size = 32
     lr = 0.01
@@ -134,9 +134,10 @@ if __name__ == '__main__':
 
     loss_stat = correct = total = 0
     start_time = time.time()
+    i = 0
 
     for epoch in range(epochs):
-        for i, (x, y) in enumerate(train_loader):
+        for x, y in train_loader:
             x = x.float()
             # print(torch.isnan(x).sum())
             x[torch.isnan(x)] = 0
@@ -170,6 +171,7 @@ if __name__ == '__main__':
             optim.zero_grad()
             loss.backward()
             optim.step()
+            i += 1
         # scheduler.step()
 
         correct = total = 0
@@ -211,7 +213,6 @@ if __name__ == '__main__':
         writer.add_scalar('Test/Acc', 100. * correct / total, (epoch + 1) * len(train_loader))
 
     y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
-    y_pred_all = torch.nn.functional.one_hot(y_pred_all, num_classes=7)
     conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
 
     fig, ax = plt.subplots(figsize=(5, 5))
