@@ -212,7 +212,9 @@ if __name__ == '__main__':
         writer.add_scalar('Test/Loss', loss_stat / log_interval, (epoch + 1) * len(train_loader))
         writer.add_scalar('Test/Acc', 100. * correct / total, (epoch + 1) * len(train_loader))
 
-    y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
+    # y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
+    # y_pred_all = torch.nn.functional.one_hot(y_pred_all, num_classes=7)
+    y_pred_all = torch.argmax(y_pred_all, -1)
     conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
 
     fig, ax = plt.subplots(figsize=(5, 5))
