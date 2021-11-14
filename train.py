@@ -37,7 +37,7 @@ class ConvNet1DPaper(nn.Module):
     def __init__(self, num_classes=7):
         super(ConvNet1DPaper, self).__init__()
         self.cnn = nn.Sequential(
-            nn.Conv1d(1, 80, kernel_size=100, stride=5),
+            nn.Conv1d(1, 80, kernel_size=(100, 1, 1), stride=5),
             nn.AvgPool1d(kernel_size=3, stride=2),
             nn.Conv1d(1, 80, kernel_size=(50, 1, 80), stride=5),
             nn.AvgPool1d(kernel_size=3, stride=1),
@@ -109,7 +109,7 @@ if "dnn" in args.name:
                           nn.Linear(128, 64), nn.ReLU(),
                           nn.Linear(64, 7))
 elif "cnn" in args.name:
-    model = ConvNet1DPaper()
+    model = ConvNet1D()
     conv = True
 elif "logreg" in args.name:
     model = nn.Sequential(nn.Linear(1800, 7))
@@ -119,7 +119,7 @@ else:
 writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 if conv:
-    summary(model, (32, 1, 1800))
+    summary(model, (1, 1800))
 
 
 if __name__ == '__main__':
