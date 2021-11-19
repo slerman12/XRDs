@@ -32,10 +32,11 @@ random.seed(seed)
 classification = True
 conv = False
 paper = False
+num_classes = 230
 
 
 class ConvNet1DPaper(nn.Module):
-    def __init__(self, num_classes=7):
+    def __init__(self, num_classes=num_classes):
         super(ConvNet1DPaper, self).__init__()
         self.cnn = nn.Sequential(
             nn.Conv1d(1, 80, kernel_size=(100, 1, 1), stride=5),
@@ -58,7 +59,7 @@ class ConvNet1DPaper(nn.Module):
 
 
 class ConvNet1D(nn.Module):
-    def __init__(self, num_classes=7):
+    def __init__(self, num_classes=num_classes):
         super(ConvNet1D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv1d(1, 16, kernel_size=5, stride=1, padding=2),
@@ -108,7 +109,7 @@ if "dnn" in args.name:
                           nn.Linear(512, 256), nn.ReLU(),
                           nn.Linear(256, 128), nn.ReLU(),
                           nn.Linear(128, 64), nn.ReLU(),
-                          nn.Linear(64, 7))
+                          nn.Linear(64, num_classes))
 elif args.name == "cnn":
     model = ConvNet1D()
     conv = True
@@ -131,7 +132,7 @@ if conv:
 
 
 if __name__ == '__main__':
-    epochs = 1000
+    epochs = 250
     log_interval = 1000
     batch_size = 32
     lr = 0.01
