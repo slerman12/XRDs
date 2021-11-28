@@ -43,9 +43,9 @@ class ConvNet1DPaper(nn.Module):
             nn.AvgPool1d(kernel_size=3, stride=2),
             nn.Conv1d(80, 80, kernel_size=50, stride=5),
             nn.AvgPool1d(kernel_size=3, stride=1),
-            nn.Conv1d(80, 80, kernel_size=23, stride=2),
-            # nn.AvgPool1d(kernel_size=3, stride=1),
-            nn.Flatten(1)
+            nn.Conv1d(80, 80, kernel_size=25, stride=2),
+            nn.AvgPool1d(kernel_size=3, stride=1),
+            nn.Flatten()
         )
         self.fc = nn.Sequential(
             nn.Linear(880, 700),
