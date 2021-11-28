@@ -32,7 +32,7 @@ random.seed(seed)
 classification = True
 conv = False
 paper = False
-num_classes = 7
+num_classes = 230
 
 
 class ConvNet1DPaper(nn.Module):

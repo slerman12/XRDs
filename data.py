@@ -15,7 +15,7 @@ class XRDData(Dataset):
             self.size = self.num_datapoints - train_size
 
         self.feature_file = root + "/43049_features.csv"
-        self.label_file = root + "/47049_labels.csv"
+        self.label_file = root + "/47049_labels230.csv"
 
         self.train_inds = np.random.choice(np.arange(self.num_datapoints), size=train_size, replace=False)
         self.test_inds = np.array([x for x in np.arange(self.num_datapoints) if x not in self.train_inds])
