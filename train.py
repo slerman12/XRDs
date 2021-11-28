@@ -188,8 +188,8 @@ if __name__ == '__main__':
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
                 assert x.shape[2] == 1800
-                if paper:
-                    x = x.unsqueeze(1).unsqueeze(1)
+                # if paper:
+                #     x = x.unsqueeze(1).unsqueeze(1)
 
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
