@@ -32,19 +32,19 @@ random.seed(seed)
 classification = True
 conv = False
 paper = False
-num_classes = 230
+num_classes = 7
 
 
 class ConvNet1DPaper(nn.Module):
     def __init__(self, num_classes=num_classes):
         super(ConvNet1DPaper, self).__init__()
         self.cnn = nn.Sequential(
-            nn.Conv1d(1, 80, kernel_size=(100, 1, 1), stride=5),
-            nn.AvgPool1d(kernel_size=(3, 1, 1), stride=2),
-            nn.Conv1d(1, 80, kernel_size=(50, 1, 80), stride=5),
-            nn.AvgPool1d(kernel_size=(3, 1, 1), stride=1),
-            nn.Conv1d(1, 80, kernel_size=(25, 1, 80), stride=2),
-            nn.AvgPool1d(kernel_size=(3, 1, 1), stride=1),
+            nn.Conv1d(1, 80, kernel_size=100, stride=5),
+            nn.AvgPool1d(kernel_size=3, stride=2),
+            nn.Conv1d(1, 80, kernel_size=50, stride=5),
+            nn.AvgPool1d(kernel_size=3, stride=1),
+            nn.Conv1d(1, 80, kernel_size=25, stride=2),
+            nn.AvgPool1d(kernel_size=3, stride=1),
             nn.Flatten(1)
         )
         self.fc = nn.Sequential(
@@ -118,7 +118,7 @@ elif args.name == "cnnp":
     conv = True
     paper = True
 elif "logreg" in args.name:
-    model = nn.Sequential(nn.Linear(1800, 7))
+    model = nn.Sequential(nn.Linear(1800, num_classes))
 else:
     assert False
 
