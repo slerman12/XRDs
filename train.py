@@ -48,8 +48,8 @@ class ConvNet1DPaper(nn.Module):
             nn.Flatten()
         )
         self.fc = nn.Sequential(
-            nn.Linear(880, 700),
-            nn.Linear(700, 70),
+            nn.Linear(160, 140),
+            nn.Linear(140, 70),
             nn.Linear(70, num_classes))
 
     def forward(self, x):
