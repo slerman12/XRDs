@@ -137,7 +137,7 @@ if conv:
 
 
 if __name__ == '__main__':
-    epochs = 2
+    epochs = 0
     log_interval = 1000
     batch_size = 32
     lr = 0.01
