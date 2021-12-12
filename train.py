@@ -68,12 +68,12 @@ class ConvNet1D(nn.Module):
         super(ConvNet1D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv1d(1, 16, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm1d(16),
+            # nn.BatchNorm1d(16),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2))
         self.layer2 = nn.Sequential(
             nn.Conv1d(16, 32, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm1d(32),
+            # nn.BatchNorm1d(32),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
             nn.Flatten(1))
