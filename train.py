@@ -40,16 +40,21 @@ class ConvNet1DPaper(nn.Module):
         super(ConvNet1DPaper, self).__init__()
         self.cnn = nn.Sequential(
             nn.Conv1d(1, 80, kernel_size=80, stride=4),
+            nn.ReLU(),
             nn.AvgPool1d(kernel_size=3, stride=2),
             nn.Conv1d(80, 80, kernel_size=50, stride=5),
+            nn.ReLU(),
             nn.AvgPool1d(kernel_size=3, stride=1),
             nn.Conv1d(80, 80, kernel_size=25, stride=2),
+            nn.ReLU(),
             nn.AvgPool1d(kernel_size=3, stride=1),
             nn.Flatten()
         )
         self.fc = nn.Sequential(
             nn.Linear(160, 140),
+            nn.ReLU(),
             nn.Linear(140, 70),
+            nn.ReLU(),
             nn.Linear(70, num_classes))
 
     def forward(self, x):
@@ -188,8 +193,6 @@ if __name__ == '__main__':
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
                 assert x.shape[2] == 1800
-                # if paper:
-                #     x = x.unsqueeze(1).unsqueeze(1)
 
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
@@ -251,12 +254,20 @@ if __name__ == '__main__':
         writer.add_scalar('Test/Loss', loss_stat / log_interval, (epoch + 1) * len(train_loader))
         writer.add_scalar('Test/Acc', 100. * correct / total, (epoch + 1) * len(train_loader))
 
+    y_pred_all = torch.argmax(y_pred_all, -1)
+
+    for label in range(num_classes):
+        if len(y_test_all[y_test_all == label]) > 0:
+            acc = y_pred_all[y_test_all == label]
+            acc = len(acc[acc == label]) / len(acc)
+            print(f"Accuracy for class {label}: {acc}")
+
     # y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
     # y_pred_all = torch.nn.functional.one_hot(y_pred_all, num_classes=7)
-    y_pred_all = torch.argmax(y_pred_all, -1)
+
     conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
 
-    fig, ax = plt.subplots(figsize=(5, 5))
+    fig, ax = plt.subplots(figsize=(num_classes, num_classes))
     ax.matshow(conf_matrix, cmap=plt.cm.Oranges, alpha=0.3)
     for i in range(conf_matrix.shape[0]):
         for j in range(conf_matrix.shape[1]):
