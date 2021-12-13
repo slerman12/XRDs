@@ -137,7 +137,7 @@ if conv:
 
 
 if __name__ == '__main__':
-    epochs = 250
+    epochs = 100
     log_interval = 1000
     batch_size = 32
     lr = 0.01
@@ -259,7 +259,7 @@ if __name__ == '__main__':
     for label in range(num_classes):
         if len(y_test_all[y_test_all == label]) > 0:
             acc = y_pred_all[y_test_all == label]
-            acc = len(acc[acc == label]) / len(acc)
+            acc = len(acc[acc == label]) / max(len(acc), 1)
             print(f"Accuracy for class {label}: {acc}")
 
     # y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
