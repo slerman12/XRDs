@@ -22,6 +22,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
 parser.add_argument('--name', default="dnn", type=str, help='logging directory')
 parser.add_argument('--num-workers', default=0, type=int, help='number data loading workers')
+parser.add_argument('--num-classes', default=7, type=int, help='number classes')
 args = parser.parse_args()
 
 
@@ -32,7 +33,7 @@ random.seed(seed)
 classification = True
 conv = False
 paper = False
-num_classes = 230
+num_classes = args.num_classes
 root = 'data_01_23'
 
 
