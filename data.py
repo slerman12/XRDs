@@ -6,7 +6,7 @@ import numpy as np
 
 
 class XRDData(Dataset):
-    def __init__(self, root, train=True, train_test_split=0.9):
+    def __init__(self, root, train=True, train_test_split=0.9, num_classes=230):
         self.num_datapoints = 47049
         self.train_test_split = train_test_split
         self.size = train_size = round(self.num_datapoints * self.train_test_split)
@@ -14,8 +14,8 @@ class XRDData(Dataset):
         if not self.train:
             self.size = self.num_datapoints - train_size
 
-        self.feature_file = root + "/43049_features.csv"
-        self.label_file = root + "/47049_labels230.csv"
+        self.feature_file = root + "/features.csv"
+        self.label_file = root + f"/labels{num_classes}.csv"
 
         self.train_inds = np.random.choice(np.arange(self.num_datapoints), size=train_size, replace=False)
         self.test_inds = np.array([x for x in np.arange(self.num_datapoints) if x not in self.train_inds])

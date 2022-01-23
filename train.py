@@ -33,6 +33,7 @@ classification = True
 conv = False
 paper = False
 num_classes = 230
+root = 'data_01_23'
 
 
 class ConvNet1DPaper(nn.Module):
@@ -142,31 +143,16 @@ if __name__ == '__main__':
     batch_size = 32
     lr = 0.01
 
-    saved = glob.glob("./*.pt")
     train_test_split = 0.9
-    if './train_loader.pt' in saved and False:
-        print("loading train...")
-        train_loader = torch.load('train_loader.pt')
-        print("done")
-    else:
-        print("parsing train...")
-        train_dataset = XRDData(root='xrd_data/47049', train=True, train_test_split=train_test_split)
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
+    print("parsing train...")
+    train_dataset = XRDData(root, train=True, train_test_split=train_test_split, num_classes=num_classes)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
+    print("done")
 
-        # torch.save(train_loader, 'train_loader.pt')
-        print("done")
-
-    if './test_loader.pt' in saved and False:
-        print("loading test...")
-        test_loader = torch.load('test_loader.pt')
-        print("done")
-    else:
-        print("parsing test...")
-        test_dataset = XRDData(root='xrd_data/47049', train=False, train_test_split=train_test_split)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-
-        # torch.save(test_loader, 'test_loader.pt')
-        print("done")
+    print("parsing test...")
+    test_dataset = XRDData(root, train=False, train_test_split=train_test_split, num_classes=num_classes)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    print("done")
 
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr)
