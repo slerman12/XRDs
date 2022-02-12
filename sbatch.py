@@ -1,6 +1,8 @@
 import subprocess
 
 date = '02_11'
+# conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
+conda_activate = 'module load anaconda3/5.2.0b'
 
 for num_ways in [7, 230]:
     for model in ['cnn', 'cnnp', 'dnn', 'logreg']:
@@ -9,7 +11,7 @@ for num_ways in [7, 230]:
 #SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}.log -J {date}_{num_ways}
 #SBATCH --mem=80gb 
 
-source /scratch/slerman/miniconda/bin/activate agi
+{conda_activate}
 python3 train.py --log-dir {date}_{num_ways} --num-classes {num_ways} --num-workers 10 --name {model}"""
 
         # Write script
