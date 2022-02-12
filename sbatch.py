@@ -1,8 +1,8 @@
 import subprocess
 
 date = '02_11'
-# conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
-conda_activate = 'module load anaconda3/5.2.0b'
+conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
+# conda_activate = 'module load anaconda3/5.2.0b'
 
 for num_ways in [7, 230]:
     for model in ['cnn', 'cnnp', 'dnn', 'logreg']:
