@@ -1,6 +1,6 @@
 import subprocess
 
-date = '02_11'
+date = '02_20'
 conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
 # conda_activate = 'module load anaconda3/5.2.0b'
 
