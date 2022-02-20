@@ -13,6 +13,7 @@ from torch import nn
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
 from torchsummary import summary
+from torchsampler import ImbalancedDatasetSampler
 
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
@@ -89,7 +90,7 @@ class ConvNet1D(nn.Module):
 
 
 class ConvNet2D(nn.Module):
-    def __init__(self, num_classes=6):
+    def __init__(self, num_classes=7):
         super(ConvNet2D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
@@ -147,7 +148,7 @@ if __name__ == '__main__':
     train_test_split = 0.9
     print("parsing train...")
     train_dataset = XRDData(root, train=True, train_test_split=train_test_split, num_classes=num_classes)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
+    train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset), batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
     print("parsing test...")
