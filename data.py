@@ -30,7 +30,8 @@ class XRDData(Dataset):
         return self.size
 
     def get_labels(self):
-        return torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(", "))))) for line in self.label_lines])
+        inds = self.train_inds if self.train else self.test_inds
+        return torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(", "))))) for i, line in enumerate(self.label_lines) if i in inds])
 
     def __getitem__(self, idx):
         if self.train:
