@@ -1,6 +1,6 @@
 import glob
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, TensorDataset
 from tqdm import tqdm
 import numpy as np
 
@@ -26,12 +26,13 @@ class XRDData(Dataset):
         with open(self.label_file) as f:
             self.label_lines = f.readlines()
 
+
+        inds = self.train_inds if self.train else self.test_inds
+        labels = torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(", "))))) for i, line in enumerate(self.label_lines) if i in inds])
+        self.y_count = {c: (labels == c).sum() for c in range(num_classes)}
+
     def __len__(self):
         return self.size
-
-    def get_labels(self):
-        inds = self.train_inds if self.train else self.test_inds
-        return torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(", "))))) for i, line in enumerate(self.label_lines) if i in inds])
 
     def __getitem__(self, idx):
         if self.train:

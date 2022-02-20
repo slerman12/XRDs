@@ -13,7 +13,6 @@ from torch import nn
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
 from torchsummary import summary
-from torchsampler import ImbalancedDatasetSampler
 
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
@@ -90,7 +89,7 @@ class ConvNet1D(nn.Module):
 
 
 class ConvNet2D(nn.Module):
-    def __init__(self, num_classes=7):
+    def __init__(self, num_classes=6):
         super(ConvNet2D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
@@ -148,7 +147,7 @@ if __name__ == '__main__':
     train_test_split = 0.9
     print("parsing train...")
     train_dataset = XRDData(root, train=True, train_test_split=train_test_split, num_classes=num_classes)
-    train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset), batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
     print("parsing test...")
@@ -159,11 +158,14 @@ if __name__ == '__main__':
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr)
     # scheduler = ExponentialLR(optim, gamma=0.9)
-    cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
+    cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
 
     loss_stat = correct = total = 0
     start_time = time.time()
     i = 0
+
+    def balance(labels):
+        return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels])
 
     for epoch in range(epochs):
         for x, y in train_loader:
@@ -184,7 +186,7 @@ if __name__ == '__main__':
 
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
-            loss = cost(y_pred, y)
+            loss = (cost(y_pred, y) * balance(y)).mean()
 
             loss_stat += loss.item()
             correct += (torch.argmax(y_pred, dim=-1) == y).sum().item()
