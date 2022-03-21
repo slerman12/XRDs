@@ -36,8 +36,8 @@ paper = False
 resize = False
 num_classes = args.num_classes
 # root = train_root = test_root = 'data_01_23'
-train_root = 'domain_adaptation_data/synthetic_domain'
-test_root = 'domain_adaptation_data/rruff_domain'
+train_root = 'domain_adaptation_data/domainAdaptation/synthetic_domain'
+test_root = 'domain_adaptation_data/domainAdaptation/rruff_domain'
 
 
 class ConvNet1DPaper(nn.Module):
