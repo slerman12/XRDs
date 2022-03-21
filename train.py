@@ -33,8 +33,11 @@ random.seed(seed)
 classification = True
 conv = False
 paper = False
+resize = False
 num_classes = args.num_classes
-root = 'data_01_23'
+# root = train_root = test_root = 'data_01_23'
+train_root = 'domain_adaptation_data/synthetic_domain'
+test_root = 'domain_adaptation_data/rruff_domain'
 
 
 class ConvNet1DPaper(nn.Module):
@@ -88,6 +91,30 @@ class ConvNet1D(nn.Module):
         return out
 
 
+class ConvNet1DResize(nn.Module):
+    def __init__(self, num_classes=num_classes):
+        super(ConvNet1DResize, self).__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv1d(1, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm1d(64),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2)
+            )
+        self.layer2 = nn.Sequential(
+            nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),
+            nn.BatchNorm1d(128),
+            nn.ReLU(),
+            # nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Flatten())
+        self.fc = nn.Linear(425, num_classes)
+
+    def forward(self, x):
+        out = self.layer1(x)
+        out = self.layer2(out)
+        out = self.fc(out)
+        return out
+
+
 class ConvNet2D(nn.Module):
     def __init__(self, num_classes=6):
         super(ConvNet2D, self).__init__()
@@ -111,9 +138,16 @@ class ConvNet2D(nn.Module):
         return out
 
 
-if "dnn" in args.name:
+if "dnn" == args.name:
     model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
                           nn.Linear(512, 256), nn.ReLU(),
+                          nn.Linear(256, 128), nn.ReLU(),
+                          nn.Linear(128, 64), nn.ReLU(),
+                          nn.Linear(64, num_classes))
+
+
+elif "dnn_resize" == args.name:
+    model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
                           nn.Linear(256, 128), nn.ReLU(),
                           nn.Linear(128, 64), nn.ReLU(),
                           nn.Linear(64, num_classes))
@@ -124,8 +158,14 @@ elif args.name == "cnnp":
     model = ConvNet1DPaper()
     conv = True
     paper = True
-elif "logreg" in args.name:
+elif args.name == "cnn_resize":
+    model = ConvNet1DResize()
+    conv = True
+    resize = True
+elif "logreg" == args.name:
     model = nn.Sequential(nn.Linear(1800, num_classes))
+elif "logreg_resize" == args.name:
+    model = nn.Sequential(nn.Linear(850, num_classes))
 else:
     assert False
 
@@ -134,6 +174,8 @@ writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 if conv:
     if paper:
         summary(model, (1, 1800))
+    elif resize:
+        summary(model, (1, 850))
     else:
         summary(model, (1, 1800))
 
@@ -146,12 +188,12 @@ if __name__ == '__main__':
 
     train_test_split = 0.9
     print("parsing train...")
-    train_dataset = XRDData(root, train=True, train_test_split=train_test_split, num_classes=num_classes)
+    train_dataset = XRDData(train_root, train=True, train_test_split=train_test_split, num_classes=num_classes)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
     print("parsing test...")
-    test_dataset = XRDData(root, train=False, train_test_split=train_test_split, num_classes=num_classes)
+    test_dataset = XRDData(test_root, train=False, train_test_split=train_test_split, num_classes=num_classes)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     print("done")
 
@@ -182,7 +224,7 @@ if __name__ == '__main__':
             if conv:
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
-                assert x.shape[2] == 1800
+                # assert x.shape[2] == 1800
 
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
@@ -222,7 +264,7 @@ if __name__ == '__main__':
             if conv:
                 x = x.unsqueeze(1)
                 assert x.shape[1] == 1
-                assert x.shape[2] == 1800
+                # assert x.shape[2] == 1800
             y_pred = model(x).detach()
 
             if epoch == epochs - 1:

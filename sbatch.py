@@ -1,11 +1,11 @@
 import subprocess
 
-date = '02_20'
+date = '03_20'
 conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
 # conda_activate = 'module load anaconda3/5.2.0b'
 
 for num_ways in [7, 230]:
-    for model in ['cnn', 'cnnp', 'dnn', 'logreg']:
+    for model in ['cnn_resize', 'dnn_resize', 'logreg_resize']:
         script = f"""#!/bin/bash
 #SBATCH -c 11
 #SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}.log -J {date}_{num_ways}
