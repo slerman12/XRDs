@@ -112,7 +112,7 @@ class ConvNet1DResize(nn.Module):
             nn.ReLU(),  # Conserves height/width
             # Removed MaxPool
             nn.Flatten(),
-            nn.Linear(425, num_classes))
+            nn.Linear(400, num_classes))
 
     def forward(self, x):
         return self.CNN(x)
@@ -150,7 +150,7 @@ if "dnn" == args.name:
 
 
 elif "dnn_resize" == args.name:
-    model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
+    model = nn.Sequential(nn.Linear(800, 256), nn.ReLU(),
                           nn.Linear(256, 128), nn.ReLU(),
                           nn.Linear(128, 64), nn.ReLU(),
                           nn.Linear(64, num_classes))
@@ -168,7 +168,7 @@ elif args.name == "cnn_resize":
 elif "logreg" == args.name:
     model = nn.Sequential(nn.Linear(1800, num_classes))
 elif "logreg_resize" == args.name:
-    model = nn.Sequential(nn.Linear(850, num_classes))
+    model = nn.Sequential(nn.Linear(800, num_classes))
 else:
     assert False
 
