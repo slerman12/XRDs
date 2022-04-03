@@ -6,7 +6,7 @@ import numpy as np
 
 
 class XRDData(Dataset):
-    def __init__(self, root, train=True, train_test_split=0.9, num_classes=230):
+    def __init__(self, root, train=True, train_test_split=0.9, num_classes=230, deliminator=', ', subspace=None):
         self.num_datapoints = 47049
         self.num_classes = num_classes
         self.train_test_split = train_test_split
@@ -26,10 +26,12 @@ class XRDData(Dataset):
         with open(self.label_file) as f:
             self.label_lines = f.readlines()
 
-
         inds = self.train_inds if self.train else self.test_inds
         labels = torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(", "))))) for i, line in enumerate(self.label_lines) if i in inds])
         self.y_count = {c: (labels == c).sum() for c in range(num_classes)}
+
+        self.deliminator = deliminator
+        self.subspace = subspace
 
     def __len__(self):
         return self.size
@@ -42,10 +44,14 @@ class XRDData(Dataset):
         # if not self.train:
         #     idx = idx + round(self.num_datapoints * self.train_test_split)
         line = self.feature_lines[idx]
-        x = list(map(float, line.strip().split(", ")))
+        x = list(map(float, line.strip().split(self.deliminator)))
         x = torch.FloatTensor(x)
+
+        if self.subspace is not None:
+            x = x[self.subspace[0]:self.subspace[1]]
+
         line = self.label_lines[idx]
-        y = list(map(float, line.strip().split(", ")))
+        y = list(map(float, line.strip().split(self.deliminator)))
         y = torch.FloatTensor(y)
         y = torch.argmax(y)
         return x, y

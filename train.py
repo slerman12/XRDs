@@ -36,8 +36,12 @@ paper = False
 resize = False
 num_classes = args.num_classes
 # root = train_root = test_root = 'data_01_23'
+# deliminator = ', '
+# subspace = None
 train_root = 'domain_adaptation_data/domainAdaptation/synthetic_domain'
 test_root = 'domain_adaptation_data/domainAdaptation/rruff_domain'
+deliminator = ','
+subspace = [50, 900]
 
 
 class ConvNet1DPaper(nn.Module):
@@ -94,25 +98,24 @@ class ConvNet1D(nn.Module):
 class ConvNet1DResize(nn.Module):
     def __init__(self, num_classes=num_classes):
         super(ConvNet1DResize, self).__init__()
-        self.layer1 = nn.Sequential(
-            nn.Conv1d(1, 64, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm1d(64),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=2, stride=2)
-            )
-        self.layer2 = nn.Sequential(
-            nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm1d(128),
-            nn.ReLU(),
-            # nn.MaxPool1d(kernel_size=2, stride=2),
-            nn.Flatten())
-        self.fc = nn.Linear(425, num_classes)
+        self.CNN = nn.Sequential(
+            # Reduce kernel size  5 -> 3
+            # Reduce padding  2 -> 1
+            # Increase channel width  16 -> 64
+            nn.Conv1d(1, 64, kernel_size=3, stride=1, padding=1),  # Conserves height/width
+            nn.BatchNorm1d(64),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
+            # Increase channel width  32 -> 128
+            nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(128),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            # Removed MaxPool
+            nn.Flatten(),
+            nn.Linear(425, num_classes))
 
     def forward(self, x):
-        out = self.layer1(x)
-        out = self.layer2(out)
-        out = self.fc(out)
-        return out
+        return self.CNN(x)
 
 
 class ConvNet2D(nn.Module):
@@ -188,7 +191,8 @@ if __name__ == '__main__':
 
     train_test_split = 0.9
     print("parsing train...")
-    train_dataset = XRDData(train_root, train=True, train_test_split=train_test_split, num_classes=num_classes)
+    train_dataset = XRDData(train_root, train=True, train_test_split=train_test_split, num_classes=num_classes,
+                            deliminator=deliminator, subspace=subspace)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
