@@ -197,7 +197,8 @@ if __name__ == '__main__':
     print("done")
 
     print("parsing test...")
-    test_dataset = XRDData(test_root, train=False, train_test_split=train_test_split, num_classes=num_classes)
+    test_dataset = XRDData(test_root, train=False, train_test_split=train_test_split, num_classes=num_classes,
+                           deliminator=deliminator)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     print("done")
 
