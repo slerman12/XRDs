@@ -236,6 +236,7 @@ if __name__ == '__main__':
                 # assert x.shape[2] == 1800
 
             # one_hot = F.one_hot(y, num_classes=10).float()
+            print(x.shape)
             y_pred = model(x)
             loss = (cost(y_pred, y) * balance(y)).mean()
 
