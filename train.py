@@ -122,33 +122,6 @@ class ConvNet1DResize(nn.Module):
         return self.CNN(x)
 
 
-# class ConvNet1DResize(nn.Module):
-#     def __init__(self, num_classes=num_classes):
-#         super(ConvNet1DResize, self).__init__()
-#         self.CNN = nn.Sequential(
-#             # Reduce kernel size  5 -> 3
-#             # Reduce padding  2 -> 1
-#             # Increase channel width  16 -> 64
-#             nn.Conv1d(1, 64, kernel_size=3, stride=1, padding=1),  # Conserves height/width
-#             nn.BatchNorm1d(64),  # Conserves height/width
-#             nn.ReLU(),  # Conserves height/width
-#         )
-#         self.CNN2 = nn.Sequential(
-#             nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
-#             # Increase channel width  32 -> 128
-#             nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-#             nn.BatchNorm1d(128),  # Conserves height/width
-#             nn.ReLU(),  # Conserves height/width
-#             # Removed MaxPool
-#             nn.Flatten(),
-#             nn.Linear(425, num_classes))
-#
-#     def forward(self, x):
-#         bla = self.CNN(x)
-#         print(bla.shape)
-#         return self.CNN2(bla)
-
-
 class ConvNet2D(nn.Module):
     def __init__(self, num_classes=6):
         super(ConvNet2D, self).__init__()
@@ -215,7 +188,7 @@ if conv:
 
 
 if __name__ == '__main__':
-    epochs = 1
+    epochs = 500
     log_interval = 1000
     batch_size = 32
     lr = 0.01
