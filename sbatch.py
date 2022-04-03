@@ -8,7 +8,7 @@ for num_ways in [7, 230]:
     for model in ['cnn_resize', 'dnn_resize', 'logreg_resize']:
         script = f"""#!/bin/bash
 #SBATCH -c 11
-#SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}.log -J {date}_{num_ways}
+#SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}_{model}.log -J {date}_{num_ways}_{model}
 #SBATCH --mem=80gb 
 
 {conda_activate}
