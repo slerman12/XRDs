@@ -40,6 +40,10 @@ num_classes = args.num_classes
 # subspace = None
 train_root = 'domain_adaptation_data/domainAdaptation/synthetic_domain'
 test_root = 'domain_adaptation_data/domainAdaptation/rruff_domain'
+train_num_datapoints = 171009
+test_num_datapoints = 549
+train_split = 1
+test_split = 0
 deliminator = ','
 subspace = [50, 900]
 
@@ -191,14 +195,14 @@ if __name__ == '__main__':
 
     train_test_split = 0.9
     print("parsing train...")
-    train_dataset = XRDData(train_root, train=True, train_test_split=train_test_split, num_classes=num_classes,
-                            deliminator=deliminator, subspace=subspace)
+    train_dataset = XRDData(train_root, train=True, train_test_split=train_split, num_classes=num_classes,
+                            deliminator=deliminator, subspace=subspace, num_datapoints=train_num_datapoints)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
     print("parsing test...")
-    test_dataset = XRDData(test_root, train=False, train_test_split=train_test_split, num_classes=num_classes,
-                           deliminator=deliminator)
+    test_dataset = XRDData(test_root, train=False, train_test_split=test_split, num_classes=num_classes,
+                           deliminator=deliminator, num_datapoints=test_num_datapoints)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     print("done")
 

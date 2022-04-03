@@ -6,8 +6,9 @@ import numpy as np
 
 
 class XRDData(Dataset):
-    def __init__(self, root, train=True, train_test_split=0.9, num_classes=230, deliminator=', ', subspace=None):
-        self.num_datapoints = 47049
+    def __init__(self, root, train=True, train_test_split=0.9, num_classes=230, deliminator=', ', subspace=None,
+                 num_datapoints=47049):
+        self.num_datapoints = num_datapoints
         self.num_classes = num_classes
         self.train_test_split = train_test_split
         self.size = train_size = round(self.num_datapoints * self.train_test_split)
