@@ -27,7 +27,7 @@ class XRDData(Dataset):
             self.label_lines = f.readlines()
 
         inds = self.train_inds if self.train else self.test_inds
-        labels = torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(", "))))) for i, line in enumerate(self.label_lines) if i in inds])
+        labels = torch.stack([torch.argmax(torch.FloatTensor(list(map(float, line.strip().split(deliminator))))) for i, line in enumerate(self.label_lines) if i in inds])
         self.y_count = {c: (labels == c).sum() for c in range(num_classes)}
 
         self.deliminator = deliminator
