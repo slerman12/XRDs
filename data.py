@@ -48,8 +48,12 @@ class XRDData(Dataset):
         x = list(map(float, line.strip().split(self.deliminator)))
         x = torch.FloatTensor(x)
 
+        print(x.shape)
+
         if self.subspace is not None:
             x = x[self.subspace[0]:self.subspace[1]]
+
+        print(x.shape)
 
         line = self.label_lines[idx]
         y = list(map(float, line.strip().split(self.deliminator)))
