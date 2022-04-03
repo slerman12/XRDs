@@ -37,7 +37,7 @@ resize = False
 num_classes = args.num_classes
 # root = train_root = test_root = 'data_01_23'
 # deliminator = ', '
-# subspace = None
+subspace = None
 train_root = 'domain_adaptation_data/domainAdaptation/synthetic_domain'
 test_root = 'domain_adaptation_data/domainAdaptation/rruff_domain'
 train_num_datapoints = 171009
@@ -45,7 +45,7 @@ test_num_datapoints = 549
 train_split = 1
 test_split = 0
 deliminator = ','
-subspace = [50, 900]
+# subspace = [50, 900]
 
 
 class ConvNet1DPaper(nn.Module):
