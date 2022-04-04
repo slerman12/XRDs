@@ -110,10 +110,12 @@ class ConvNet1DResize(nn.Module):
             nn.BatchNorm1d(64),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
             nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
+            nn.Dropout(0.1),
             # Increase channel width  32 -> 128
             nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),  # Conserves height/width
             nn.BatchNorm1d(128),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
+            nn.Dropout(0.1),
             # Removed MaxPool
             nn.Flatten(),
             nn.Linear(425 * 128, num_classes))
@@ -206,8 +208,8 @@ if __name__ == '__main__':
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     print("done")
 
-    optim = SGD(model.parameters(), lr=lr)
-    # optim = AdamW(model.parameters(), lr=lr)
+    # optim = SGD(model.parameters(), lr=lr)
+    optim = AdamW(model.parameters(), lr=lr, weight_decay=0.01)
     # scheduler = ExponentialLR(optim, gamma=0.9)
     cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
 
