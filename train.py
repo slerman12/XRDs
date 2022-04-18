@@ -47,6 +47,8 @@ test_split = 0
 deliminator = ','
 # subspace = [50, 900]
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 
 class ConvNet1DPaper(nn.Module):
     def __init__(self, num_classes=num_classes):
@@ -103,20 +105,19 @@ class ConvNet1DResize(nn.Module):
     def __init__(self, num_classes=num_classes):
         super(ConvNet1DResize, self).__init__()
         self.CNN = nn.Sequential(
-            # Reduce kernel size  5 -> 3
-            # Reduce padding  2 -> 1
-            # Increase channel width  16 -> 64
-            nn.Conv1d(1, 64, kernel_size=3, stride=1, padding=1),  # Conserves height/width
-            nn.BatchNorm1d(64),  # Conserves height/width
+            nn.Conv1d(1, 256, kernel_size=3, stride=1, padding=1),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
             nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
-            nn.Dropout(0.1),
-            # Increase channel width  32 -> 128
-            nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(128),  # Conserves height/width
+            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
-            nn.Dropout(0.1),
-            # Removed MaxPool
             nn.Flatten(),
             nn.Linear(425 * 128, num_classes))
 
@@ -156,10 +157,9 @@ if "dnn" == args.name:
 
 
 elif "dnn_resize" == args.name:
-    model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
-                          nn.Linear(256, 128), nn.ReLU(),
-                          nn.Linear(128, 64), nn.ReLU(),
-                          nn.Linear(64, num_classes))
+    model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
+                          nn.Linear(8500, 8500), nn.ReLU(),
+                          nn.Linear(8500, num_classes))
 elif args.name == "cnn":
     model = ConvNet1D()
     conv = True
@@ -177,6 +177,8 @@ elif "logreg_resize" == args.name:
     model = nn.Sequential(nn.Linear(850, num_classes))
 else:
     assert False
+
+model = model.to(device)
 
 writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
@@ -208,8 +210,8 @@ if __name__ == '__main__':
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     print("done")
 
-    # optim = SGD(model.parameters(), lr=lr)
-    optim = AdamW(model.parameters(), lr=lr, weight_decay=0.01)
+    optim = SGD(model.parameters(), lr=lr)
+    # optim = AdamW(model.parameters(), lr=lr, weight_decay=0.01)
     # scheduler = ExponentialLR(optim, gamma=0.9)
     cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
 
@@ -221,7 +223,12 @@ if __name__ == '__main__':
         return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels])
 
     for epoch in range(epochs):
+
+        model = model.train()
+
         for x, y in train_loader:
+            x, y = x.to(device), y.to(device)
+
             x = x.float()
             # print(torch.isnan(x).sum())
             x[torch.isnan(x)] = 0
@@ -263,7 +270,11 @@ if __name__ == '__main__':
         y_pred_all = None
         y_test_all = None
 
+        model = model.eval()
+
         for i, (x, y) in enumerate(test_loader):
+            x, y = x.to(device), y.to(device)
+
             x = x.float()
             if not torch.nonzero(x).any():
                 continue

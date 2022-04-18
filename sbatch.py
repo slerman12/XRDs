@@ -6,10 +6,11 @@ conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
 
 for num_ways in [7, 230]:
     for model in ['cnn_resize',
-                  # 'dnn_resize', 'logreg_resize'
+                  'dnn_resize',
                   ]:
         script = f"""#!/bin/bash
-#SBATCH -c 11
+#SBATCH -p gpu -c 11 --gres=gpu:1
+#SBATCH -C K80|V100
 #SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}_{model}.log -J {date}_{num_ways}_{model}
 #SBATCH --mem=80gb 
 
