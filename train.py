@@ -213,14 +213,15 @@ if __name__ == '__main__':
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr, weight_decay=0.01)
     # scheduler = ExponentialLR(optim, gamma=0.9)
-    cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
+    # cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
+    cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
 
     loss_stat = correct = total = 0
     start_time = time.time()
     i = 0
 
     def balance(labels):
-        return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels])
+        return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels]).to(device)
 
     for epoch in range(epochs):
 
@@ -247,7 +248,7 @@ if __name__ == '__main__':
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
             # loss = (cost(y_pred, y) * balance(y)).mean()
-            loss = (cost(y_pred, y)).mean()
+            loss = cost(y_pred, y)
 
             loss_stat += loss.item()
             correct += (torch.argmax(y_pred, dim=-1) == y).sum().item()
