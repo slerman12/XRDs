@@ -186,9 +186,14 @@ if "dnn" == args.name:
 
 
 elif "dnn_resize" == args.name:
-    model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
-                          nn.Linear(8500, 8500), nn.ReLU(),
-                          nn.Linear(8500, num_classes))
+    # model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
+    #                       nn.Linear(8500, 8500), nn.ReLU(),
+    #                       nn.Linear(8500, num_classes))
+
+    model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
+                          nn.Linear(256, 128), nn.ReLU(),
+                          nn.Linear(128, 64), nn.ReLU(),
+                          nn.Linear(64, num_classes))
 elif args.name == "cnn":
     model = ConvNet1D()
     conv = True
