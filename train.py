@@ -14,7 +14,7 @@ from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
 from torchsummary import summary
 
-from sklearn.metrics import confusion_matrix
+# from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 
 
@@ -319,13 +319,13 @@ if __name__ == '__main__':
     # y_test_all = torch.nn.functional.one_hot(y_test_all, num_classes=7)
     # y_pred_all = torch.nn.functional.one_hot(y_pred_all, num_classes=7)
 
-    conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
+    # conf_matrix = confusion_matrix(y_true=y_test_all, y_pred=y_pred_all)
 
     fig, ax = plt.subplots(figsize=(num_classes, num_classes))
-    ax.matshow(conf_matrix, cmap=plt.cm.Oranges, alpha=0.3)
-    for i in range(conf_matrix.shape[0]):
-        for j in range(conf_matrix.shape[1]):
-            ax.text(x=j, y=i, s=conf_matrix[i, j], va='center', ha='center', size='xx-large')
+    # ax.matshow(conf_matrix, cmap=plt.cm.Oranges, alpha=0.3)
+    # for i in range(conf_matrix.shape[0]):
+    #     for j in range(conf_matrix.shape[1]):
+    #         ax.text(x=j, y=i, s=conf_matrix[i, j], va='center', ha='center', size='xx-large')
 
     plt.xlabel('Predictions', fontsize=18)
     plt.ylabel('Actuals', fontsize=18)
