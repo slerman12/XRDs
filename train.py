@@ -119,7 +119,7 @@ class ConvNet1DResize(nn.Module):
             nn.BatchNorm1d(256),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
             nn.Flatten(),
-            nn.Linear(425 * 128, num_classes))
+            nn.Linear(425 * 256, num_classes))
 
     def forward(self, x):
         return self.CNN(x)
