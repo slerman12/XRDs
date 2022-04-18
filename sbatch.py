@@ -1,12 +1,12 @@
 import subprocess
 
-date = '04_17'
+date = '04_18'
 conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
 # conda_activate = 'module load anaconda3/5.2.0b'
 
 for num_ways in [7, 230]:
     for model in ['cnn_resize',
-                  'dnn_resize',
+                  # 'dnn_resize',
                   ]:
         script = f"""#!/bin/bash
 #SBATCH -p gpu -c 11 --gres=gpu:1

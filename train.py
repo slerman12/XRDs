@@ -105,21 +105,20 @@ class ConvNet1DResize(nn.Module):
     def __init__(self, num_classes=num_classes):
         super(ConvNet1DResize, self).__init__()
         self.CNN = nn.Sequential(
-            nn.Conv1d(1, 256, kernel_size=3, stride=1, padding=1),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
-            nn.ReLU(),  # Conserves height/width
-            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
-            nn.ReLU(),  # Conserves height/width
-            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
+            # Reduce kernel size  5 -> 3
+            # Reduce padding  2 -> 1
+            # Increase channel width  16 -> 64
+            nn.Conv1d(1, 64, kernel_size=3, stride=1, padding=1),  # Conserves height/width
+            nn.BatchNorm1d(64),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
             nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
-            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
+            # Increase channel width  32 -> 128
+            nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(128),  # Conserves height/width
             nn.ReLU(),  # Conserves height/width
+            # Removed MaxPool
             nn.Flatten(),
-            nn.Linear(425 * 256, num_classes))
+            nn.Linear(425 * 128, num_classes))
 
     def forward(self, x):
         return self.CNN(x)
@@ -220,8 +219,8 @@ if __name__ == '__main__':
     start_time = time.time()
     i = 0
 
-    def balance(labels):
-        return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels]).to(device)
+    # def balance(labels):
+    #     return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels]).to(device)
 
     for epoch in range(epochs):
 
