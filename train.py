@@ -100,6 +100,34 @@ class ConvNet1D(nn.Module):
         out = self.fc(out)
         return out
 
+#
+class ConvNet1DResize(nn.Module):
+    def __init__(self, num_classes=num_classes):
+        super(ConvNet1DResize, self).__init__()
+        self.CNN = nn.Sequential(
+            nn.Conv1d(1, 256, kernel_size=3, stride=1, padding=1),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
+            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+            nn.BatchNorm1d(256),  # Conserves height/width
+            nn.ReLU(),  # Conserves height/width
+            nn.Flatten(),
+            nn.Linear(425 * 256, 2048),
+            nn.Linear(2048, 1024),
+            nn.Linear(1024, 512),
+            nn.Linear(512, num_classes),
+        )
+
+    def forward(self, x):
+        return self.CNN(x)
+
 
 # class ConvNet1DResize(nn.Module):
 #     def __init__(self, num_classes=num_classes):
@@ -124,34 +152,34 @@ class ConvNet1D(nn.Module):
 #         return self.CNN(x)
 
 
-class ConvNet1DResize(nn.Module):
-    def __init__(self, num_classes=num_classes):
-        super(ConvNet1DResize, self).__init__()
-        self.CNN = nn.Sequential(
-            nn.Conv1d(1, 256, kernel_size=10, stride=2),
-            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-            nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
-            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-            nn.Conv1d(256, 256, kernel_size=10, stride=2),
-            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-            nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
-            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-            nn.Flatten(),
-            nn.Linear(768, 128),
-            nn.ReLU(),
-            nn.Linear(128, num_classes)
-        )
-
-    def forward(self, x):
-        return self.CNN(x)
+# class ConvNet1DResize(nn.Module):
+#     def __init__(self, num_classes=num_classes):
+#         super(ConvNet1DResize, self).__init__()
+#         self.CNN = nn.Sequential(
+#             nn.Conv1d(1, 256, kernel_size=10, stride=2),
+#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+#             nn.ReLU(),
+#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+#             nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
+#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+#             nn.ReLU(),
+#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+#             nn.Conv1d(256, 256, kernel_size=10, stride=2),
+#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+#             nn.ReLU(),
+#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+#             nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
+#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+#             nn.ReLU(),
+#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+#             nn.Flatten(),
+#             nn.Linear(768, 128),
+#             nn.ReLU(),
+#             nn.Linear(128, num_classes)
+#         )
+#
+#     def forward(self, x):
+#         return self.CNN(x)
 
 
 class ConvNet2D(nn.Module):
@@ -186,14 +214,14 @@ if "dnn" == args.name:
 
 
 elif "dnn_resize" == args.name:
-    # model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
-    #                       nn.Linear(8500, 8500), nn.ReLU(),
-    #                       nn.Linear(8500, num_classes))
+    model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
+                          nn.Linear(8500, 8500), nn.ReLU(),
+                          nn.Linear(8500, num_classes))
 
-    model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
-                          nn.Linear(256, 128), nn.ReLU(),
-                          nn.Linear(128, 64), nn.ReLU(),
-                          nn.Linear(64, num_classes))
+    # model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
+    #                       nn.Linear(256, 128), nn.ReLU(),
+    #                       nn.Linear(128, 64), nn.ReLU(),
+    #                       nn.Linear(64, num_classes))
 elif args.name == "cnn":
     model = ConvNet1D()
     conv = True
@@ -226,7 +254,7 @@ if conv:
 
 
 if __name__ == '__main__':
-    epochs = 500
+    epochs = 2000
     log_interval = 1000
     batch_size = 32
     lr = 0.01
