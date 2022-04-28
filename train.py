@@ -120,8 +120,11 @@ class ConvNet1DResize(nn.Module):
             nn.ReLU(),  # Conserves height/width
             nn.Flatten(),
             nn.Linear(425 * 256, 2048),
+            nn.ReLU(),
             nn.Linear(2048, 1024),
+            nn.ReLU(),
             nn.Linear(1024, 512),
+            nn.ReLU(),
             nn.Linear(512, num_classes),
         )
 
