@@ -6,8 +6,8 @@ conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
 
 for num_ways in [7, 230]:
     for model in [
-        # 'dnn_resize',
-                  'cnn_resize',
+        'dnn_resize',
+                  # 'cnn_resize',
                   ]:
         script = f"""#!/bin/bash
 #SBATCH -p gpu -c 11 --gres=gpu:1
