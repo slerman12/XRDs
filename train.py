@@ -101,35 +101,66 @@ class ConvNet1D(nn.Module):
         return out
 
 #
-class ConvNet1DResize(nn.Module):
-    def __init__(self, num_classes=num_classes):
-        super(ConvNet1DResize, self).__init__()
-        self.CNN = nn.Sequential(
-            nn.Conv1d(1, 256, kernel_size=3, stride=1, padding=1),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
-            nn.ReLU(),  # Conserves height/width
-            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
-            nn.ReLU(),  # Conserves height/width
-            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
-            nn.ReLU(),  # Conserves height/width
-            nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
-            nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
-            nn.BatchNorm1d(256),  # Conserves height/width
-            nn.ReLU(),  # Conserves height/width
-            nn.Flatten(),
-            nn.Linear(425 * 256, 2048),
-            nn.ReLU(),
-            nn.Linear(2048, 1024),
-            nn.ReLU(),
-            nn.Linear(1024, 512),
-            nn.ReLU(),
-            nn.Linear(512, num_classes),
-        )
+# class ConvNet1DResize(nn.Module):
+#     def __init__(self, num_classes=num_classes):
+#         super(ConvNet1DResize, self).__init__()
+#         self.CNN = nn.Sequential(
+#             nn.Conv1d(1, 256, kernel_size=3, stride=1, padding=1),  # Conserves height/width
+#             nn.BatchNorm1d(256),  # Conserves height/width
+#             nn.ReLU(),  # Conserves height/width
+#             nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+#             nn.BatchNorm1d(256),  # Conserves height/width
+#             nn.ReLU(),  # Conserves height/width
+#             nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+#             nn.BatchNorm1d(256),  # Conserves height/width
+#             nn.ReLU(),  # Conserves height/width
+#             nn.MaxPool1d(kernel_size=2, stride=2),  # Cuts height/width in 2
+#             nn.Conv1d(256, 256, kernel_size=5, stride=1, padding=2),  # Conserves height/width
+#             nn.BatchNorm1d(256),  # Conserves height/width
+#             nn.ReLU(),  # Conserves height/width
+#             nn.Flatten(),
+#             nn.Linear(425 * 256, 2048),
+#             nn.ReLU(),
+#             nn.Linear(2048, 1024),
+#             nn.ReLU(),
+#             nn.Linear(1024, 512),
+#             nn.ReLU(),
+#             nn.Linear(512, num_classes),
+#         )
+#
+#     def forward(self, x):
+#         return self.CNN(x)
 
-    def forward(self, x):
-        return self.CNN(x)
+
+# class ConvNet1DResize(nn.Module):
+#     def __init__(self, num_classes=num_classes):
+#         super(ConvNet1DResize, self).__init__()
+#         self.CNN = \
+#             nn.Sequential(
+#                 nn.Conv1d(1, 80, (100,), (5,)),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.3),
+#                 nn.AvgPool1d(3, 2),
+#                 nn.Conv1d(1, 80, (50,), (5,)),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.3),
+#                 nn.AvgPool1d(3),
+#                 nn.Conv1d(1, 80, (25,), (2,)),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.3),
+#                 nn.AvgPool1d(3),
+#                 nn.Flatten(),
+#                 nn.Linear(features, 2300),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.5),
+#                 nn.Linear(2300, 1150),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.5),
+#                 nn.Linear(512, num_classes)
+#             )
+#
+#     def forward(self, x):
+#         return self.CNN(x)
 
 
 # class ConvNet1DResize(nn.Module):
@@ -155,34 +186,34 @@ class ConvNet1DResize(nn.Module):
 #         return self.CNN(x)
 
 
-# class ConvNet1DResize(nn.Module):
-#     def __init__(self, num_classes=num_classes):
-#         super(ConvNet1DResize, self).__init__()
-#         self.CNN = nn.Sequential(
-#             nn.Conv1d(1, 256, kernel_size=10, stride=2),
-#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-#             nn.ReLU(),
-#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-#             nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
-#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-#             nn.ReLU(),
-#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-#             nn.Conv1d(256, 256, kernel_size=10, stride=2),
-#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-#             nn.ReLU(),
-#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-#             nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
-#             nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-#             nn.ReLU(),
-#             nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
-#             nn.Flatten(),
-#             nn.Linear(768, 128),
-#             nn.ReLU(),
-#             nn.Linear(128, num_classes)
-#         )
-#
-#     def forward(self, x):
-#         return self.CNN(x)
+class ConvNet1DResize(nn.Module):
+    def __init__(self, num_classes=num_classes):
+        super(ConvNet1DResize, self).__init__()
+        self.CNN = nn.Sequential(
+            nn.Conv1d(1, 256, kernel_size=10, stride=2),
+            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+            nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
+            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+            nn.Conv1d(256, 256, kernel_size=10, stride=2),
+            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+            nn.Conv1d(256, 256, kernel_size=(10,), stride=(2,)),
+            nn.BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False),
+            nn.Flatten(),
+            nn.Linear(768, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_classes)
+        )
+
+    def forward(self, x):
+        return self.CNN(x)
 
 
 class ConvNet2D(nn.Module):
@@ -278,15 +309,15 @@ if __name__ == '__main__':
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr, weight_decay=0.01)
     # scheduler = ExponentialLR(optim, gamma=0.9)
-    # cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
-    cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
+    cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
+    # cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
 
     loss_stat = correct = total = 0
     start_time = time.time()
     i = 0
 
-    # def balance(labels):
-    #     return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels]).to(device)
+    def balance(labels):
+        return 1 / torch.tensor([train_dataset.y_count[int(l)] for l in labels]).to(device)
 
     for epoch in range(epochs):
 
@@ -312,8 +343,8 @@ if __name__ == '__main__':
 
             # one_hot = F.one_hot(y, num_classes=10).float()
             y_pred = model(x)
-            # loss = (cost(y_pred, y) * balance(y)).mean()
-            loss = cost(y_pred, y)
+            loss = (cost(y_pred, y) * balance(y)).mean()
+            # loss = cost(y_pred, y)
 
             loss_stat += loss.item()
             correct += (torch.argmax(y_pred, dim=-1) == y).sum().item()
