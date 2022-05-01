@@ -172,22 +172,22 @@ class ConvNet1DResize(nn.Module):
                 nn.ReLU(),
                 nn.Dropout(0.3),
                 nn.AvgPool1d(3, 1, 1),  # 850
-                nn.Conv1d(1, 80, (5,), (1,), (2,)),  # 850
+                nn.Conv1d(80, 80, (5,), (1,), (2,)),  # 850
                 nn.ReLU(),
                 nn.Dropout(0.3),
                 nn.AvgPool1d(3, 1, 1),  # 850
-                nn.Conv1d(1, 80, (5,), (2,), (2, )),  # 425
+                nn.Conv1d(80, 80, (5,), (2,), (2, )),  # 425
                 nn.ReLU(),
                 nn.Dropout(0.3),
                 nn.AvgPool1d(3, 1, 1),
                 nn.Flatten(),
-                nn.Linear(425, 425),
+                nn.Linear(425 * 80, 1024),
                 nn.ReLU(),
                 nn.Dropout(0.5),
-                nn.Linear(425, 425),
+                nn.Linear(1024, 512),
                 nn.ReLU(),
                 nn.Dropout(0.5),
-                nn.Linear(425, num_classes)
+                nn.Linear(512, num_classes)
             )
 
     def forward(self, x):
