@@ -11,11 +11,11 @@ for train in ['xrd_data/05_29_data/icsd171k_ps2_noise20', 'xrd_data/05_29_data/i
             script = f"""#!/bin/bash
 #SBATCH -p gpu -c 11 --gres=gpu:1
 #SBATCH -C K80|V100|RTX
-#SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}_{model}_{train}.log -J {date}_{num_ways}_{model}_{train}
+#SBATCH -t 5-00:00:00 -o ./{date}_{num_ways}_{model}_{train.replace('/', '_')}.log -J {date}_{num_ways}_{model}_{train.replace('/', '_')}
 #SBATCH --mem=80gb 
     
 {conda_activate}
-python3 train.py --train {train} --log-dir {date}_{num_ways}_{train} --num-classes {num_ways} --num-workers 10 --name {model}"""
+python3 train.py --train {train} --log-dir {date}_{num_ways}_{train.replace('/', '_')} --num-classes {num_ways} --num-workers 10 --name {model}"""
 
             # Write script
             with open("sbatch_script", "w") as file:
