@@ -12,7 +12,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
-from torchsummary import summary
+from torchinfo import summary
 
 # from sklearn.metrics import confusion_matrix
 # import matplotlib.pyplot as plt
@@ -135,58 +135,56 @@ class ConvNet1D(nn.Module):
 #         return self.CNN(x)
 
 
-# class ConvNet1DResize(nn.Module):
-#     def __init__(self, num_classes=num_classes):
-#         super(ConvNet1DResize, self).__init__()
-#         self.CNN = \
-#             nn.Sequential(
-#                 nn.Conv1d(1, 80, (100,), (5,)),
-#                 nn.ReLU(),
-#                 nn.Dropout(0.3),
-#                 nn.AvgPool1d(3, 2),
-#                 nn.Conv1d(1, 80, (50,), (5,)),
-#                 nn.ReLU(),
-#                 nn.Dropout(0.3),
-#                 nn.AvgPool1d(3),
-#                 nn.Conv1d(1, 80, (25,), (2,)),
-#                 nn.ReLU(),
-#                 nn.Dropout(0.3),
-#                 nn.AvgPool1d(3),
-#                 nn.Flatten(),
-#                 nn.Linear(features, 2300),
-#                 nn.ReLU(),
-#                 nn.Dropout(0.5),
-#                 nn.Linear(2300, 1150),
-#                 nn.ReLU(),
-#                 nn.Dropout(0.5),
-#                 nn.Linear(512, num_classes)
-#             )
-#
-#     def forward(self, x):
-#         return self.CNN(x)
+class FeatureTest(nn.Module):
+    def __init__(self):
+        super(FeatureTest, self).__init__()
+        self.test = \
+            nn.Sequential(
+                nn.Conv1d(1, 80, (100,), (5,)),
+                nn.ReLU(),
+                nn.Dropout(0.3),
+                nn.AvgPool1d(3, 2),
+                nn.Conv1d(1, 80, (50,), (5,)),
+                nn.ReLU(),
+                nn.Dropout(0.3),
+                nn.AvgPool1d(3),
+                nn.Conv1d(1, 80, (25,), (2,)),
+                nn.ReLU(),
+                nn.Dropout(0.3),
+                nn.AvgPool1d(3),
+                nn.Flatten()
+            )
+
+    def forward(self, x):
+        return self.test(x)
+
+
+features = summary(FeatureTest(), (1, 8500)).summary_list[-1].output_size[-1]
+print("features", features)
+
 
 class ConvNet1DResize(nn.Module):
     def __init__(self, num_classes=num_classes):
         super(ConvNet1DResize, self).__init__()
         self.CNN = \
             nn.Sequential(
-                nn.Conv1d(1, 80, (9,), (1,), (4,)),  # 850
+                nn.Conv1d(1, 80, (100,), (5,)),
                 nn.ReLU(),
                 nn.Dropout(0.3),
-                nn.AvgPool1d(3, 1, 1),  # 850
-                nn.Conv1d(80, 80, (5,), (1,), (2,)),  # 850
+                nn.AvgPool1d(3, 2),
+                nn.Conv1d(1, 80, (50,), (5,)),
                 nn.ReLU(),
                 nn.Dropout(0.3),
-                nn.AvgPool1d(3, 1, 1),  # 850
-                nn.Conv1d(80, 80, (5,), (2,), (2, )),  # 425
+                nn.AvgPool1d(3),
+                nn.Conv1d(1, 80, (25,), (2,)),
                 nn.ReLU(),
                 nn.Dropout(0.3),
-                nn.AvgPool1d(3, 1, 1),
+                nn.AvgPool1d(3),
                 nn.Flatten(),
-                nn.Linear(425 * 80, 1024),
+                nn.Linear(features, 2300),
                 nn.ReLU(),
                 nn.Dropout(0.5),
-                nn.Linear(1024, 512),
+                nn.Linear(2300, 1150),
                 nn.ReLU(),
                 nn.Dropout(0.5),
                 nn.Linear(512, num_classes)
@@ -194,6 +192,37 @@ class ConvNet1DResize(nn.Module):
 
     def forward(self, x):
         return self.CNN(x)
+
+
+# class ConvNet1DResize(nn.Module):
+#     def __init__(self, num_classes=num_classes):
+#         super(ConvNet1DResize, self).__init__()
+#         self.CNN = \
+#             nn.Sequential(
+#                 nn.Conv1d(1, 80, (9,), (1,), (4,)),  # 850
+#                 nn.ReLU(),
+#                 nn.Dropout(0.3),
+#                 nn.AvgPool1d(3, 1, 1),  # 850
+#                 nn.Conv1d(80, 80, (5,), (1,), (2,)),  # 850
+#                 nn.ReLU(),
+#                 nn.Dropout(0.3),
+#                 nn.AvgPool1d(3, 1, 1),  # 850
+#                 nn.Conv1d(80, 80, (5,), (2,), (2, )),  # 425
+#                 nn.ReLU(),
+#                 nn.Dropout(0.3),
+#                 nn.AvgPool1d(3, 1, 1),
+#                 nn.Flatten(),
+#                 nn.Linear(425 * 80, 1024),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.5),
+#                 nn.Linear(1024, 512),
+#                 nn.ReLU(),
+#                 nn.Dropout(0.5),
+#                 nn.Linear(512, num_classes)
+#             )
+#
+#     def forward(self, x):
+#         return self.CNN(x)
 
 # class ConvNet1DResize(nn.Module):
 #     def __init__(self, num_classes=num_classes):
@@ -359,7 +388,6 @@ if __name__ == '__main__':
 
         for x, y in train_loader:
             x, y = x.to(device), y.to(device)
-            print(x.shape)
 
             x = x.float()
             # print(torch.isnan(x).sum())
