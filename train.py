@@ -20,6 +20,7 @@ from torchsummary import summary
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
+parser.add_argument('--train', default="dnn", type=str, help='train data')
 parser.add_argument('--name', default="dnn", type=str, help='logging directory')
 parser.add_argument('--num-workers', default=0, type=int, help='number data loading workers')
 parser.add_argument('--num-classes', default=7, type=int, help='number classes')
@@ -39,8 +40,9 @@ num_classes = args.num_classes
 # root = train_root = test_root = 'data_01_23'
 # deliminator = ', '
 subspace = None
-train_root = 'domain_adaptation_data/domainAdaptation/synthetic_domain'
-test_root = 'domain_adaptation_data/domainAdaptation/rruff_domain'
+# train_root = 'xrd_data/05_29_data/synthetic_domain'
+train_root = args.train
+test_root = 'xrd_data/05_29_data/XY_DIF_noiseAll'
 train_num_datapoints = 171009
 test_num_datapoints = 549
 train_split = 1
