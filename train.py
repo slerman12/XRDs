@@ -309,9 +309,15 @@ if "dnn" == args.name:
 
 
 elif "dnn_resize" == args.name:
-    model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
-                          nn.Linear(8500, 8500), nn.ReLU(),
-                          nn.Linear(8500, num_classes))
+    model = nn.Sequential(nn.Linear(8500, 4000), nn.ReLU(), nn.Dropout(0.5),
+                          nn.Linear(4000, 3000), nn.ReLU(), nn.Dropout(0.5),
+                          nn.Linear(3000, 1000), nn.ReLU(), nn.Dropout(0.4),
+                          nn.Linear(1000, 800), nn.ReLU(), nn.Dropout(0.3),
+                          nn.Linear(800, num_classes))
+
+    # model = nn.Sequential(nn.Linear(850, 8500), nn.ReLU(),
+    #                       nn.Linear(8500, 8500), nn.ReLU(),
+    #                       nn.Linear(8500, num_classes))
 
     # model = nn.Sequential(nn.Linear(850, 256), nn.ReLU(),
     #                       nn.Linear(256, 128), nn.ReLU(),
@@ -343,9 +349,12 @@ if conv:
     if paper:
         summary(model, (1, 1800))
     elif resize:
-        summary(model, (1, 850))
+        # summary(model, (1, 850))
+        summary(model, (1, 8500))
     else:
         summary(model, (1, 1800))
+else:
+    summary(model, (8500,))
 
 
 if __name__ == '__main__':
