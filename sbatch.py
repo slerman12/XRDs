@@ -5,7 +5,7 @@ conda_activate = 'source /scratch/slerman/miniconda/bin/activate agi'
 # conda_activate = 'module load anaconda3/5.2.0b'
 
 for train in ['xrd_data/05_29_data/icsd171k_ps2_noise20', 'xrd_data/05_29_data/icsd171k_ps1_noise20',
-              'xrd_data/05_29_data/icsd171k_ps2', 'xrd_data/05_29_data/icsd171k_ps1 ']:
+              'xrd_data/05_29_data/icsd171k_ps2', 'xrd_data/05_29_data/icsd171k_ps1']:
     for num_ways in [7, 230]:
         for model in ['dnn_resize', 'cnn_resize']:
             script = f"""#!/bin/bash
