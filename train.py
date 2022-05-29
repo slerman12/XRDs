@@ -20,7 +20,7 @@ from torchsummary import summary
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
-parser.add_argument('--train', default="dnn", type=str, help='train data')
+parser.add_argument('--train', default="'xrd_data/05_29_data/icsd171k_ps2'", type=str, help='train data')
 parser.add_argument('--name', default="dnn", type=str, help='logging directory')
 parser.add_argument('--num-workers', default=0, type=int, help='number data loading workers')
 parser.add_argument('--num-classes', default=7, type=int, help='number classes')
@@ -359,6 +359,7 @@ if __name__ == '__main__':
 
         for x, y in train_loader:
             x, y = x.to(device), y.to(device)
+            print(x.shape)
 
             x = x.float()
             # print(torch.isnan(x).sum())
