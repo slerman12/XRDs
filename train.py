@@ -180,7 +180,7 @@ class ConvNet1DResize(nn.Module):
                 nn.Linear(2300, 1150),
                 nn.ReLU(),
                 nn.Dropout(0.5),
-                nn.Linear(512, num_classes)
+                nn.Linear(1150, num_classes)
             )
 
     def forward(self, x):
@@ -348,6 +348,7 @@ if __name__ == '__main__':
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr, weight_decay=0.05)
     # scheduler = ExponentialLR(optim, gamma=0.9)
+
     if class_balance:
         cost = nn.CrossEntropyLoss(reduction='none')
     else:
