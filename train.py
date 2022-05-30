@@ -13,6 +13,7 @@ from torch import nn
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
 from torchinfo import summary
+import numpy as np
 
 # from sklearn.metrics import confusion_matrix
 # import matplotlib.pyplot as plt
@@ -22,7 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
 parser.add_argument('--train', default="'xrd_data/05_29_data/icsd171k_ps2'", type=str, help='train data')
 parser.add_argument('--name', default="dnn", type=str, help='logging directory')
-parser.add_argument('--num-workers', default=0, type=int, help='number data loading workers')
+parser.add_argument('--num-workers', default=10, type=int, help='number data loading workers')
 parser.add_argument('--num-classes', default=7, type=int, help='number classes')
 args = parser.parse_args()
 
@@ -31,26 +32,15 @@ seed = 1
 torch.manual_seed(seed)
 random.seed(seed)
 
-classification = True
-conv = False
-paper = False
-resize = False
-class_balance = False
-num_classes = args.num_classes
-# root = train_root = test_root = 'data_01_23'
-# deliminator = ', '
-subspace = None
 # train_root = 'xrd_data/05_29_data/synthetic_domain'
 train_root = args.train
 test_root = 'xrd_data/05_29_data/XY_DIF_noiseAll'
-train_num_datapoints = 171009
-test_num_datapoints = 549
-train_split = 1
-test_split = 0
 deliminator = ','
-# subspace = [50, 900]
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+class_balance = False
+num_classes = args.num_classes
 
 
 class ConvNet1DPaper(nn.Module):
@@ -135,6 +125,9 @@ class ConvNet1D(nn.Module):
 #         return self.CNN(x)
 
 
+# REPRODUCING PRB PAPER CNN
+
+
 class FeatureTest(nn.Module):
     def __init__(self):
         super(FeatureTest, self).__init__()
@@ -159,7 +152,7 @@ class FeatureTest(nn.Module):
         return self.test(x)
 
 
-features = summary(FeatureTest(), (1, 8500)).summary_list[-1].output_size[-1]
+features = summary(FeatureTest(), (1, 1, 8500)).summary_list[-1].output_size[-1]
 print("features", features)
 
 
@@ -276,30 +269,7 @@ class ConvNet1DResize(nn.Module):
 #     def forward(self, x):
 #         return self.CNN(x)
 
-
-class ConvNet2D(nn.Module):
-    def __init__(self, num_classes=6):
-        super(ConvNet2D, self).__init__()
-        self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 16, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm2d(16),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2))
-        self.layer2 = nn.Sequential(
-            nn.Conv2d(16, 32, kernel_size=5, stride=1, padding=2),
-            nn.BatchNorm2d(32),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Flatten(1))
-        self.fc = nn.Linear(7*7*32, num_classes)
-
-    def forward(self, x):
-        out = self.layer1(x)
-        out = self.layer2(out)
-        out = self.fc(out)
-        return out
-
-
+conv = paper = resize = False
 if "dnn" == args.name:
     model = nn.Sequential(nn.Linear(1800, 512), nn.ReLU(),
                           nn.Linear(512, 256), nn.ReLU(),
@@ -309,6 +279,8 @@ if "dnn" == args.name:
 
 
 elif "dnn_resize" == args.name:
+    # REPRODUCING PRB PAPER DNN
+
     model = nn.Sequential(nn.Linear(8500, 4000), nn.ReLU(), nn.Dropout(0.5),
                           nn.Linear(4000, 3000), nn.ReLU(), nn.Dropout(0.5),
                           nn.Linear(3000, 1000), nn.ReLU(), nn.Dropout(0.4),
@@ -347,14 +319,14 @@ writer = SummaryWriter(log_dir=f"{args.log_dir}/{args.name}")
 
 if conv:
     if paper:
-        summary(model, (1, 1800))
+        summary(model, (1, 1, 1800))
     elif resize:
         # summary(model, (1, 850))
-        summary(model, (1, 8500))
+        summary(model, (1, 1, 8500))
     else:
-        summary(model, (1, 1800))
+        summary(model, (1, 1, 1800))
 else:
-    summary(model, (8500,))
+    summary(model, (1, 8500))
 
 
 if __name__ == '__main__':
@@ -363,26 +335,23 @@ if __name__ == '__main__':
     batch_size = 32
     lr = 0.01
 
-    train_test_split = 0.9
     print("parsing train...")
-    train_dataset = XRDData(train_root, train=True, train_test_split=train_split, num_classes=num_classes,
-                            deliminator=deliminator, subspace=subspace, num_datapoints=train_num_datapoints)
+    train_dataset = XRDData(train_root, num_classes=num_classes, deliminator=deliminator)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
     print("parsing test...")
-    test_dataset = XRDData(test_root, train=False, train_test_split=test_split, num_classes=num_classes,
-                           deliminator=deliminator, num_datapoints=test_num_datapoints)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    test_dataset = XRDData(test_root, num_classes=num_classes, deliminator=deliminator)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers)
     print("done")
 
     optim = SGD(model.parameters(), lr=lr)
     # optim = AdamW(model.parameters(), lr=lr, weight_decay=0.05)
     # scheduler = ExponentialLR(optim, gamma=0.9)
     if class_balance:
-        cost = nn.CrossEntropyLoss(reduction='none') if classification else nn.MSELoss()
+        cost = nn.CrossEntropyLoss(reduction='none')
     else:
-        cost = nn.CrossEntropyLoss() if classification else nn.MSELoss()
+        cost = nn.CrossEntropyLoss()
 
     loss_stat = correct = total = 0
     start_time = time.time()
