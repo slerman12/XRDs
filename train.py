@@ -21,7 +21,7 @@ import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log-dir', default="runs", type=str, help='logging directory')
-parser.add_argument('--train', default="'xrd_data/05_29_data/icsd171k_ps2'", type=str, help='train data')
+parser.add_argument('--train', default="'xrd_data/icsd171k_mix'", type=str, help='train data')
 parser.add_argument('--name', default="dnn", type=str, help='logging directory')
 parser.add_argument('--num-workers', default=10, type=int, help='number data loading workers')
 parser.add_argument('--num-classes', default=7, type=int, help='number classes')
@@ -34,7 +34,7 @@ random.seed(seed)
 
 # train_root = 'xrd_data/05_29_data/synthetic_domain'
 train_root = args.train
-test_root = 'xrd_data/05_29_data/XY_DIF_noiseAll'
+test_root = 'xrd_data/XY_DIF_noiseAll'
 deliminator = ','
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -152,7 +152,7 @@ class FeatureTest(nn.Module):
         return self.test(x)
 
 
-features = summary(FeatureTest(), (1, 1, 8500)).summary_list[-1].output_size[-1]
+features = summary(FeatureTest(), (1, 1, 8500), verbose=0).summary_list[-1].output_size[-1]
 print("features", features)
 
 
