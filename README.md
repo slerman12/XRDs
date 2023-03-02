@@ -1,4 +1,4 @@
-![alt text](https://i.imgur.com/2pykVau.png)
+![alt text](https://i.imgur.com/0Qp4YOb.png)
 
 **This is the repo for classifying crystal structures & space groups via 1D X-ray diffraction patterns (XRDs).**
 
