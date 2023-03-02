@@ -70,7 +70,7 @@ conda activate ML
 
 ---
 
-### ✓ Setup all set &#32;&#32; :white_check_mark:
+### ✓ Setup all set &#32;&#32;&#32;&#32; :white_check_mark:
 
 ---
 
