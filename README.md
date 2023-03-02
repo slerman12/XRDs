@@ -71,11 +71,11 @@ conda activate ML
 
 [//]: # (${\text{\color{green}✓}}$ **Done** )
 
-[//]: # (---)
+---
 
-<summary><h1 style="display: inline-block;">Reproducing paper:</h1></summary>
+## Reproducing paper
 
-[//]: # (___)
+[//]: # (<summary><h1 style="display: inline-block;">Reproducing paper</h1></summary>)
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
