@@ -18,7 +18,7 @@ year    = {2023}
 
 ---
 
-# Reproducing Paper
+# :point_up: Reproducing Paper
 
 ## Setup
 
