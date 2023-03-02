@@ -1,0 +1,20 @@
+defaults:
+  - classify@_global_: custom  # Custom classify
+  - _self_
+
+Dataset: XRD.XRD
+Eyes: XRD.CNN
+Predictor: XRD.Predictor
+
+Aug: Identity
+Trunk: Identity
+
+batch_size: 256
+standardize: false
+norm: true
+
+num_classes: 7
+dataset:
+  num_classes: ${num_classes}
+
+experiment: NPCNN

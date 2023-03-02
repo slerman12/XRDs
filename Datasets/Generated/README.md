@@ -22,7 +22,7 @@ CIF files and calculates the patterns sequentially. Notebook 1 formats the data 
 ### Executing program
 
 * Running the program requires 2 notebook executions, generating the XRD patterns and formatting for model training
-* Step 1: execute XRD_1D_pipeline_using_CIFs.ipynb
+    * Step 1: execute XRD_1D_pipeline_using_CIFs.ipynb
 * Step 2: execute XRD_1D_pipeline_converter_for_training.ipynb
 
 
@@ -30,7 +30,7 @@ CIF files and calculates the patterns sequentially. Notebook 1 formats the data 
 
 Contributors names and contact info
 
-Zhaotong Du  
+Zhaotong Du
 zdu3@ur.rochester.edu
 
 Jerardo Salgado
@@ -39,4 +39,4 @@ jsalgad2@ur.rochester.edu
 ## Version History
 
 * 0.1
-    * Initial Release
+* Initial Release

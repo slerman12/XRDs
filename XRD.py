@@ -10,6 +10,15 @@ from torch import nn
 from torch.utils.data import Dataset
 
 
+"""
+Import UnifiedML and features
+"""
+import sys
+sys.path.append("./UnifiedML")  # Imports UnifiedML expected syntax and paths
+sys.argv.extend(['-cd', 'Hyperparams'])  # Adds this project's Hyperparams directory to Hydra's .yaml search path
+from UnifiedML.Run import main  # For launching UnifiedML
+
+
 class NoPoolCNN(nn.Module):
     def __init__(self, input_shape=(1,)):
         super().__init__()
@@ -96,8 +105,8 @@ class MLP(nn.Module):
 
 
 class XRD(Dataset):
-    def __init__(self, roots=('../XRDs/icsd_Datasets/icsd171k_mix/',), train=True, train_eval_splits=(0.9,),
-                 num_classes=7, seed=0, transform=None, **kwargs):
+    def __init__(self, roots=('./Datasets/Generated/database_datasets/HighRes2Theta_5to90/ExampleSet/',),
+                 train=True, train_eval_splits=(0.9,), num_classes=7, seed=0, transform=None, **kwargs):
 
         if not isinstance(roots, Iterable):
             roots = (roots,)
@@ -158,3 +167,6 @@ class XRD(Dataset):
             x = self.transform(x)
 
         return x, y
+
+if __name__ == '__main__':
+    main()
