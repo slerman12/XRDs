@@ -24,13 +24,13 @@ year    = {2023}
 
 ### 1. Clone Current Project
 
-Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo.
+Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
 
 ```console
 git clone git@github.com:agi-init/XRD.git
 ```
 
-Change directory into the XRDs repo.
+Change directory into the XRDs repo:
 
 ```console
 cd XRD
