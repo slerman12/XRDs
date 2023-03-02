@@ -96,11 +96,11 @@ python XRD.py task=MLP
 python XRD.py task=NPCNN num_classes=230
 ```
 
-Plots automatically save to ```./Benchmarking/<experiment>/```
+Plots automatically save to ```./Benchmarking/<experiment>/```.
 
 ---
 
-The above scripts will launch training on the "souped" **synthetic + random 50% RRUFF data**, & evaluation on the **remaining 50% RRUFF data**. The trained model is saved in a ```./Checkpoints``` directory and can be loaded with the ```load=true``` flag.
+The above scripts will launch training on the "souped" **synthetic + random 50% RRUFF experimental data**, & evaluation on the **remaining 50% RRUFF data**. The trained model is saved in a ```./Checkpoints``` directory and can be loaded with the ```load=true``` flag.
 
 # Paper & Citing
 
