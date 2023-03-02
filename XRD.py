@@ -73,11 +73,11 @@ class CNN(nn.Module):
 
 
 class Predictor(nn.Module):
-    def __init__(self, input_shape=(1024,), output_dim=7):
+    def __init__(self, input_shape=(1024,), output_shape=(7,)):
         super().__init__()
 
-        input_dim = input_shape if isinstance(input_shape, int) \
-            else math.prod(input_shape)
+        input_dim = input_shape if isinstance(input_shape, int) else math.prod(input_shape)
+        output_dim = output_shape if isinstance(output_shape, int) else math.prod(output_shape)
 
         self.MLP = nn.Sequential(nn.Flatten(),
                                  nn.Linear(input_dim, 2300), nn.ReLU(), nn.Dropout(0.5),
@@ -89,11 +89,11 @@ class Predictor(nn.Module):
 
 
 class MLP(nn.Module):
-    def __init__(self, input_shape=(8500,), output_dim=7):
+    def __init__(self, input_shape=(8500,), output_shape=(7,)):
         super().__init__()
 
-        in_channels = input_shape if isinstance(input_shape, int) \
-            else math.prod(input_shape)
+        in_channels = input_shape if isinstance(input_shape, int) else math.prod(input_shape)
+        output_dim = output_shape if isinstance(output_shape, int) else math.prod(output_shape)
 
         self.MLP = nn.Sequential(nn.Flatten(),
                                  nn.Linear(in_channels, 4000), nn.ReLU(), nn.Dropout(0.6),
