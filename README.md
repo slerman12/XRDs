@@ -18,13 +18,11 @@ year    = {2023}
 
 ---
 
-# :point_up: Reproducing Paper
-
-## Setup
+# :point_up: Setup
 
 **Download and generate the 1D XRD data as described [in the Readme here](Datasets/Generated).**
 
-### 1. Clone Current Project
+## 1. Clone Current Project
 
 Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
 
@@ -38,7 +36,7 @@ Change directory into the XRDs repo:
 cd XRDs
 ```
 
-### 2. Install UnifiedML
+## 2. Install UnifiedML
 
 This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
 
@@ -77,7 +75,7 @@ ${\text{\color{green}✓}}$ **Done**
 
 
 
-## Running
+## Reproducing paper
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
