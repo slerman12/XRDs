@@ -70,15 +70,7 @@ conda activate ML
 
 ---
 
-### ✓ Setup all set 
-
-```diff
-+ Setup all set ✓
-```
-
-```html
-<span style="color:orange;">Word up</span>
-```
+### ✓ $${\color{green}Setup all set}$$
 
 ---
 
