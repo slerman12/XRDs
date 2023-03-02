@@ -85,7 +85,9 @@ conda activate ML
 
 # Reproducing Paper
 
-To run, we have 3 model variants for predicting **7-way crystal types**:
+Run scripts are shown below.
+
+We have 3 model variants for predicting **7-way crystal types**:
 
 **Model 1: No-pool CNN**
 
