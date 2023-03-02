@@ -27,13 +27,13 @@ year    = {2023}
 Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
 
 ```console
-git clone git@github.com:agi-init/XRD.git
+git clone git@github.com:slerman12/XRDs.git
 ```
 
 Change directory into the XRDs repo:
 
 ```console
-cd XRD
+cd XRDs
 ```
 
 ### 2. Install UnifiedML
