@@ -111,7 +111,7 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 ---
 
-## Paper & Citing
+# Paper & Citing
 
 If you find this work useful, be sure to cite us:
 
