@@ -18,20 +18,20 @@ year    = {2023}
 
 ---
 
-## Data
+## Setup
+
+### 1. Data
 
 **Download and generate the 1D XRD data as described in the Readme [here](Datasets/Generated).**
 
-## Installation
-
-### 1. Clone Current Project
+### 2. Clone Current Project
 
 ```console
 git clone git@github.com:agi-init/XRD.git
 cd XRD
 ```
 
-### 2. Install UnifiedML
+### 3. Install UnifiedML
 
 This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
 
