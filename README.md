@@ -70,7 +70,7 @@ conda activate ML
 
 ---
 
-${\text{✓ \color{green}Setup all set}}$
+${\text{✓ \color{green}All set}}$
 
 ---
 
