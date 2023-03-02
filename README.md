@@ -128,7 +128,7 @@ year    = {2023}
 
 ---
 
-**All [UnifiedML](https://github.com/AGI-init/UnifiedML) features and syntax are supported.**
+All **[UnifiedML](https://github.com/AGI-init/UnifiedML)** features and syntax are supported.
 
 #
 
