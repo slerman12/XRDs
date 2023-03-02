@@ -72,6 +72,8 @@ conda activate ML
 
 ### ✓ Setup all set 
 
++ Setup all set ✓
+
 ---
 
 # Reproducing Paper
