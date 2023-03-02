@@ -5,6 +5,8 @@
 *Can machine learning be used to deduce the structure of the original material?* </br>
 **[Check out our paper for more details and information, and be sure to cite us.]()**
  
+---
+
 ```bibtex
 @article{Crystals,
 title   = {XRDs with deep learning},
@@ -13,6 +15,8 @@ journal = {pre-print:Nature Communications},
 year    = {2023}
 }
 ```
+
+---
 
 ## Data
 
