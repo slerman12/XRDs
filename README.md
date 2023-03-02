@@ -7,7 +7,7 @@
  
 ```bibtex
 @article{Crystals,
-title   = {XRD classification with deep learning},
+title   = {XRDs with deep learning},
 author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
