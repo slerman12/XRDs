@@ -70,7 +70,7 @@ conda activate ML
 
 #
 
-${\text{\color{green}✓}}$ *Done* 
+> ${\text{\color{green}✓}}$ *Done* 
 
 ---
 
