@@ -69,7 +69,7 @@ conda activate ML
 > ```
 > CUDA is needed to run the deep learning code on GPUs rather than CPUs.
 
-${\text{\color{green}✓}}$ **Done** 
+[//]: # (${\text{\color{green}✓}}$ **Done** )
 
 ---
 
