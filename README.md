@@ -60,15 +60,13 @@ conda env create --name ML --file=UnifiedML/Conda.yml
 conda activate ML
 ```
 
-#
-
 <details>
 <summary>
 <i>Click for more details about CUDA/GPU troubleshooting</i>
 </summary>
 <br>
 
-> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
+> Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
 > ```console
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
@@ -76,12 +74,9 @@ conda activate ML
 
 </details>
 
-[//]: # (---)
+#
 
-[//]: # ()
 [//]: # (${\text{\color{green}✓}}$ **Done** )
-
-
 
 # Reproducing Paper
 
