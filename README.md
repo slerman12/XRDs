@@ -24,7 +24,7 @@ year    = {2023}
 
 ## 1. Clone Current Project
 
-Use **[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)** to download the XRDs repo:
+Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
 
 ```console
 git clone git@github.com:slerman12/XRDs.git
@@ -62,7 +62,7 @@ conda activate ML
 
 #
 
-> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from **[pytorch.org/get-started](https://pytorch.org/get-started/locally/)** after activating your Conda environment. For example, for CUDA 11.6:
+> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
 > ```console
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
