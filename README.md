@@ -64,12 +64,13 @@ conda activate ML
 
 #
 
-> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and install Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
+> &#9432; CUDA is needed to run the deep learning code on GPUs rather than CPUs.
+> 
+> &#9432; If your CUDA version is older than one installed by default, you may need to redundantly reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
 > ```console
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 > ```
-> CUDA is needed to run the deep learning code on GPUs rather than CPUs.
 
 [//]: # (${\text{\color{green}✓}}$ **Done** )
 
