@@ -75,7 +75,7 @@ conda activate ML
 
 ---
 
-## Reproducing paper
+## Reproducing
 
 [//]: # (<summary><h1 style="display: inline-block;">Reproducing paper</h1></summary>)
 
