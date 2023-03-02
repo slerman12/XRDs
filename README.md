@@ -66,7 +66,7 @@ ${\text{\color{green}✓}}$ **Done**
 
 <details>
 <summary>
-<i>Click for more details about CUDA/GPU troubleshooting</i>
+<i>Click here for more details about CUDA/GPU troubleshooting.</i>
 </summary>
 <br>
 
