@@ -11,7 +11,7 @@ Paper:
 
 ```bibtex
 @article{Crystals,
-title   = {XRDs with deep learning},
+title   = {XRDs with deep learning (pending actual name)},
 author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
@@ -115,13 +115,13 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 ---
 
-# Paper & Citing
+# Citing
 
 If you find this work useful, be sure to cite us:
 
 ```bibtex
 @article{Crystals,
-title   = {XRDs with deep learning},
+title   = {XRDs with deep learning (pending actual name)},
 author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
