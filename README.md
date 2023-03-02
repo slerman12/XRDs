@@ -38,7 +38,7 @@ cd XRDs
 
 ## 2. Install UnifiedML
 
-This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
+This project is built with the **[UnifiedML](https://github.com/AGI-init/UnifiedML)** deep learning library/framework.
 
 **Download UnifiedML**
 
@@ -48,7 +48,7 @@ git clone git@github.com:agi-init/UnifiedML.git
 
 **Install Dependencies**
 
-All dependencies can be installed via [Conda](https://docs.conda.io/en/latest/miniconda.html):
+All dependencies can be installed via **[Conda](https://docs.conda.io/en/latest/miniconda.html)**:
 
 ```console
 conda env create --name ML --file=UnifiedML/Conda.yml
