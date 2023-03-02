@@ -74,7 +74,7 @@ ${\text{\color{green}✓}}$ **Done**
 
 
 
-# Reproducing Paper
+# Running & Reproducing Paper
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
