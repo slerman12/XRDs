@@ -23,14 +23,14 @@ year    = {2023}
 
 ## Installation
 
-### 1. Clone Current Project:
+### 1. Clone Current Project
 
 ```console
 git clone git@github.com:agi-init/XRD.git
 cd XRD
 ```
 
-### 2. Install UnifiedML:
+### 2. Install UnifiedML
 
 This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
 
@@ -61,6 +61,8 @@ conda activate ML
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 > ```
+
+---
 
 ## Reproducing Paper
 
