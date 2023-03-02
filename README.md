@@ -78,19 +78,19 @@ conda activate ML
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
-**Model 1. No-pool CNN**
+**Model 1: No-pool CNN**
 
 ```console
 python XRD.py task=NPCNN
 ```
 
-**Model 2. Standard CNN**
+**Model 2: Standard CNN**
 
 ```console
 python XRD.py task=SCNN
 ```
 
-**Model 3. MLP**
+**Model 3: MLP**
 
 ```console
 python XRD.py task=MLP
