@@ -24,8 +24,15 @@ year    = {2023}
 
 ### 1. Clone Current Project
 
+Use git to download the XRDs repo.
+
 ```console
 git clone git@github.com:agi-init/XRD.git
+```
+
+Change directory into the XRDs repo.
+
+```console
 cd XRD
 ```
 
