@@ -72,6 +72,8 @@ conda activate ML
 
 ### ✓ Setup all set
 
+---
+
 # Reproducing Paper
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
