@@ -72,7 +72,9 @@ conda activate ML
 
 ### ✓ Setup all set 
 
+```diff
 + Setup all set ✓
+```
 
 ---
 
