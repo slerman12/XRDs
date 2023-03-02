@@ -64,7 +64,9 @@ conda activate ML
 
 <details>
 <summary>
-${\text{\color{green}✓}}$ **Done**
+<bf>
+${\text{\color{green}✓}}$ Done
+</bf>
 </summary>
 <br>
 
