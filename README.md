@@ -18,7 +18,7 @@ year    = {2023}
 
 ---
 
-# :point_up: Setup
+## :point_up: Setup
 
 **Download and generate the 1D XRD data as described [in the Readme here](Datasets/Generated).**
 
@@ -75,7 +75,7 @@ ${\text{\color{green}✓}}$ **Done**
 
 
 
-# Reproducing paper
+## Reproducing paper
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
@@ -113,7 +113,7 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 ---
 
-# Paper & Citing
+## Paper & Citing
 
 If you find this work useful, be sure to cite us:
 
