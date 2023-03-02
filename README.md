@@ -2,7 +2,7 @@
 
 **This is the repo for classifying crystal structures & space groups via 1D X-ray diffraction patterns (XRDs).**
 
-> &#9432; *"XRDs" are the incident shadows of light beams struck through materials. Can machine learning be used to deduce the structure of the original material?*
+*Can machine learning be used to deduce the structure of the original material?*
 
 **[Check out our paper for more details and information, and be sure to cite us.]()**
  
