@@ -9,7 +9,6 @@ Predictor: XRD.Predictor
 Aug: Identity
 Trunk: Identity
 
-batch_size: 256
 standardize: false
 norm: true
 
