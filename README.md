@@ -116,11 +116,11 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 If you find this work useful, be sure to cite us:
 
 ```bibtex
-@article{crystallographic~2023,
-  title   = {Classifying crystals with deep learning at scale},
-  author  = {Salgado, Jerardo ...},
-  journal = {Nature Communications pre-print},
-  year    = {2023}
+@article{Crystals,
+title   = {XRDs with deep learning},
+author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
+journal = {pre-print:Nature Communications},
+year    = {2023}
 }
 ```
 
