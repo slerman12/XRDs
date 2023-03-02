@@ -77,6 +77,8 @@ conda activate ML
 
 # Reproducing The Work
 
+Once data is downloaded, reproducing is easy.
+
 [//]: # (<summary><h1 style="display: inline-block;">Reproducing paper</h1></summary>)
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
