@@ -23,14 +23,14 @@ year    = {2023}
 
 ## Installation
 
-### 1. First, clone this current project:
+### 1. Clone Current Project:
 
 ```console
 git clone git@github.com:agi-init/XRD.git
 cd XRD
 ```
 
-### 2. Next, install UnifiedML:
+### 2. Install UnifiedML:
 
 This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
 
@@ -42,10 +42,10 @@ git clone git@github.com:agi-init/UnifiedML.git
 
 **Install Dependencies**
 
-All dependencies can be installed via [Conda](https://docs.conda.io/en/latest/miniconda.html):
+All dependencies may be installed via [Conda](https://docs.conda.io/en/latest/miniconda.html):
 
 ```console
-conda env create --name ML --file=Conda.yml
+conda env create --name ML --file=UnifiedML/Conda.yml
 ```
 
 **Activate Conda Environment**
@@ -56,9 +56,7 @@ conda activate ML
 
 #
 
-> &#9432; Depending on your CUDA version, you may need to redundantly install Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment.
->
-> For example, for CUDA 11.6:
+> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
 > ```console
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
@@ -66,32 +64,29 @@ conda activate ML
 
 ## Reproducing Paper
 
-To run, we have 3 model variants:
+To run, we have 3 model variants for predicting **7-way crystal types**:
 
-1. **No-pool CNN model**
+**No-pool CNN model**
 
 ```console
 python XRD.py task=NPCNN
 ```
 
-2. **Standard CNN model**
+**Standard CNN model**
 
 ```console
 python XRD.py task=SCNN
 ```
 
-3. **MLP model**
+**MLP model**
 
 ```console
 python XRD.py task=MLP
 ```
 
-which can be used to predict **7-way crystal types**. 
-
-To predict **230-way space groups** instead, just add the ```num_classes=230``` flag.
+:bulb: **To predict 230-way space groups instead**, add the ```num_classes=230``` flag.
 
 ```console
-# No-pool CNN model - predicting 230-way space groups
 python XRD.py task=NPCNN num_classes=230
 ```
 
