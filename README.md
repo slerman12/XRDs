@@ -76,6 +76,10 @@ conda activate ML
 + Setup all set ✓
 ```
 
+```html
+<span style="color:orange;">Word up</span>
+```
+
 ---
 
 # Reproducing Paper
