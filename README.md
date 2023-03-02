@@ -64,7 +64,7 @@ conda activate ML
 
 #
 
-> If your GPU doesn't support the latest CUDA version, you may need to redundantly install Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
+> &#9432; If your GPU doesn't support the latest CUDA version, you may need to redundantly install Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
 > ```console
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
