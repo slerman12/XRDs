@@ -92,14 +92,15 @@ python XRD.py task=MLP
 python XRD.py task=NPCNN num_classes=230
 ```
 
----
-
-The above scripts will launch training on the Soup data (synthetic + random 50% RRUFF), & evaluation on the remaining 50% RRUFF data. The trained model is saved in a ```./Checkpoints``` directory and can be loaded with the ```load=true``` flag.
-
 Plots automatically save to ```./Benchmarking/<experiment>/```
+
 :chart_with_upwards_trend: :bar_chart: --> ```./Benchmarking/Exp/```
 
 **All [UnifiedML](https://github.com/AGI-init/UnifiedML) features and syntax are supported.**
+
+---
+
+The above scripts will launch training on the Soup data (synthetic + random 50% RRUFF), & evaluation on the remaining 50% RRUFF data. The trained model is saved in a ```./Checkpoints``` directory and can be loaded with the ```load=true``` flag.
 
 ---
 
