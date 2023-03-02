@@ -117,4 +117,6 @@ If you find this work useful, be sure to cite us:
 
 All [UnifiedML](https://github.com/AGI-init/UnifiedML) features and syntax are supported.
 
+---
+
 [This code is licensed under the MIT license.](MIT_LICENSE)
