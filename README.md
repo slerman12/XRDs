@@ -68,9 +68,8 @@ conda activate ML
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 > ```
 
----
 
-### ${\text{\color{green}✓ }}$ 
+### ${\text{\color{green}✓ }}$ Setup all set
 
 ---
 
