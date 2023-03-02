@@ -70,7 +70,7 @@ conda activate ML
 
 ---
 
-## Reproducing Paper
+# Reproducing Paper
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
@@ -106,7 +106,7 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 ---
 
-## Paper & Citing
+# Paper & Citing
 
 If you find this work useful, be sure to cite us:
 
