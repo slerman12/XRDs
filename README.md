@@ -77,7 +77,7 @@ conda activate ML
 
 # Reproducing The Work
 
-Once data is downloaded, reproducing is easy.
+Once data is downloaded and UnifiedML is installed, reproducing is easy.
 
 [//]: # (<summary><h1 style="display: inline-block;">Reproducing paper</h1></summary>)
 
