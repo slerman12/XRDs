@@ -32,7 +32,7 @@ cd XRD
 
 ### 2. Install UnifiedML
 
-This project is built with the **[UnifiedML](https://github.com/AGI-init/UnifiedML)** deep learning library/framework.
+This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
 
 **Download UnifiedML**
 
@@ -98,8 +98,6 @@ Plots automatically save to ```./Benchmarking/<experiment>/```
 
 The above scripts will launch training on the **synthetic + random 50% RRUFF Soup data**, & evaluation on the **remaining 50% RRUFF data**. The trained model is saved in a ```./Checkpoints``` directory and can be loaded with the ```load=true``` flag.
 
-**All [UnifiedML](https://github.com/AGI-init/UnifiedML) features and syntax are supported.**
-
 ---
 
 ## Paper & Citing
@@ -116,5 +114,7 @@ If you find this work useful, be sure to cite us:
 ```
 
 ---
+
+All [UnifiedML](https://github.com/AGI-init/UnifiedML) features and syntax are supported.
 
 [This code is licensed under the MIT license.](MIT_LICENSE)
