@@ -70,7 +70,7 @@ conda activate ML
 
 ---
 
-${\text{{\color{green}✓} All set}$
+${\text{✓ \color{green}}}$ All set
 
 ---
 
