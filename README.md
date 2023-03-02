@@ -62,6 +62,8 @@ conda activate ML
 
 #
 
+${\text{\color{green}✓}}$ **Done**
+
 <details>
 <summary>
 <i>Click here for more details about CUDA/GPU troubleshooting.</i>
@@ -75,8 +77,6 @@ conda activate ML
 > ```
 
 </details>
-
-${\text{\color{green}✓}}$ **Done**
 
 #
 
