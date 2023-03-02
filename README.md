@@ -62,21 +62,35 @@ conda activate ML
 
 #
 
-<details>
-<summary>
-<bf>
 ${\text{\color{green}✓}}$ Done
-</bf>
-</summary>
-<br>
 
-> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
-> ```console
-> pip uninstall torch torchvision torchaudio
-> pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
-> ```
+[//]: # (<details>)
 
-</details>
+[//]: # (<summary>)
+
+[//]: # (<bf>)
+
+[//]: # (${\text{\color{green}✓}}$ Done)
+
+[//]: # (</bf>)
+
+[//]: # (</summary>)
+
+[//]: # (<br>)
+
+[//]: # ()
+[//]: # (> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started]&#40;https://pytorch.org/get-started/locally/&#41; after activating your Conda environment. For example, for CUDA 11.6:)
+
+[//]: # (> ```console)
+
+[//]: # (> pip uninstall torch torchvision torchaudio)
+
+[//]: # (> pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116)
+
+[//]: # (> ```)
+
+[//]: # ()
+[//]: # (</details>)
 
 #
 
