@@ -14,8 +14,6 @@ year    = {2023}
 }
 ```
 
----
-
 ## Data
 
 **Download and generate the 1D XRD data as described in the Readme [here](Datasets/Generated).**
