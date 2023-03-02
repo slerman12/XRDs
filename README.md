@@ -32,7 +32,7 @@ cd XRD
 
 ### 2. Install UnifiedML
 
-This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
+This project is built with the **[UnifiedML](https://github.com/AGI-init/UnifiedML)** deep learning library/framework.
 
 **Download UnifiedML**
 
