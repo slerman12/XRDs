@@ -64,7 +64,7 @@ conda activate ML
 
 <details>
 <summary>
-:mag: <i>For CUDA troubleshooting</i>
+:mag: <i>Click to expand for CUDA troubleshooting</i>
 </summary>
 <br>
 
