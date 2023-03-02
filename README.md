@@ -18,11 +18,13 @@ year    = {2023}
 
 ---
 
-# :point_up: Setup
+# Reproducing Paper
+
+## :point_up: Setup
 
 **Download and generate the 1D XRD data as described [in the Readme here](Datasets/Generated).**
 
-## 1. Clone Current Project
+### 1. Clone Current Project
 
 Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
 
@@ -36,7 +38,7 @@ Change directory into the XRDs repo:
 cd XRDs
 ```
 
-## 2. Install UnifiedML
+### 2. Install UnifiedML
 
 This project is built with the [UnifiedML](https://github.com/AGI-init/UnifiedML) deep learning library/framework.
 
@@ -62,43 +64,22 @@ conda activate ML
 
 #
 
-${\text{\color{green}✓}}$ Done
+> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started](https://pytorch.org/get-started/locally/) after activating your Conda environment. For example, for CUDA 11.6:
+> ```console
+> pip uninstall torch torchvision torchaudio
+> pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+> ```
 
-[//]: # (<details>)
-
-[//]: # (<summary>)
-
-[//]: # (<bf>)
-
-[//]: # (${\text{\color{green}✓}}$ Done)
-
-[//]: # (</bf>)
-
-[//]: # (</summary>)
-
-[//]: # (<br>)
+[//]: # (---)
 
 [//]: # ()
-[//]: # (> &#9432; Depending on your CUDA version, you may need to redundantly uninstall and reinstall Pytorch with CUDA from [pytorch.org/get-started]&#40;https://pytorch.org/get-started/locally/&#41; after activating your Conda environment. For example, for CUDA 11.6:)
+${\text{\color{green}✓}}$ **Done** 
 
-[//]: # (> ```console)
 
-[//]: # (> pip uninstall torch torchvision torchaudio)
 
-[//]: # (> pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116)
+## Running
 
-[//]: # (> ```)
-
-[//]: # ()
-[//]: # (</details>)
-
-#
-
-# Reproducing Paper
-
-Run scripts are shown below.
-
-We have 3 model variants for predicting **7-way crystal types**:
+To run, we have 3 model variants for predicting **7-way crystal types**:
 
 **Model 1: No-pool CNN**
 
