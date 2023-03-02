@@ -24,7 +24,7 @@ year    = {2023}
 
 ## 1. Clone Current Project
 
-Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
+Use **[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)** to download the XRDs repo:
 
 ```console
 git clone git@github.com:slerman12/XRDs.git
