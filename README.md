@@ -69,7 +69,7 @@ conda activate ML
 > pip uninstall torch torchvision torchaudio
 > pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 > ```
-> &#9432; CUDA is needed to run the deep learning code on GPUs rather than CPUs. UnifiedML will automatically select CUDA, CPU, or MPS depending on availability.
+> &#9432; CUDA is needed to run the deep learning code on GPUs rather than CPUs. UnifiedML will automatically select GPUs when a working CUDA is available.
 
 [//]: # (${\text{\color{green}✓}}$ **Done** )
 
