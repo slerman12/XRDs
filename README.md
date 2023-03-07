@@ -3,7 +3,7 @@
 **Welcome to the repo for classifying crystal structures & space groups from 1D X-ray diffraction (XRD) patterns.**
 
 *Can machine learning identify crystals in light diffraction patterns?* </br>
-**[Check out our paper for more details and information, and be sure to cite us.]()**
+**[Check out our paper for more details and information(), and be sure to cite us.]**
  
 ---
 
@@ -113,7 +113,7 @@ Plots automatically save to ```./Benchmarking/<experiment>/```.
 
 The above scripts will launch training on the "souped" **synthetic + random 50% RRUFF experimental data**, & evaluation on the **remaining 50% RRUFF data**. The trained model is saved in a ```./Checkpoints``` directory and can be loaded with the ```load=true``` flag.
 
-**All model code can be found in [```XRD.py```](XRD.py)**
+All model code can be found in [```XRD.py```](XRD.py)
 
 ---
 
@@ -132,7 +132,7 @@ year    = {2023}
 
 ---
 
-All **[UnifiedML](https://github.com/AGI-init/UnifiedML)** features and syntax are supported.
+All [UnifiedML](https://github.com/AGI-init/UnifiedML) features and syntax are supported.
 
 #
 
