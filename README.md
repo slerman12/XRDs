@@ -26,7 +26,7 @@ year    = {2023}
 
 ## 1. Clone Current Project
 
-Use **[git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)** to download the XRDs repo:
+Use [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to download the XRDs repo:
 
 ```console
 git clone git@github.com:slerman12/XRDs.git
@@ -50,7 +50,7 @@ git clone git@github.com:agi-init/UnifiedML.git
 
 **Install Dependencies**
 
-All dependencies can be installed via **[Conda](https://docs.conda.io/en/latest/miniconda.html)**:
+All dependencies can be installed via [Conda](https://docs.conda.io/en/latest/miniconda.html):
 
 ```console
 conda env create --name ML --file=UnifiedML/Conda.yml
