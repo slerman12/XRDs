@@ -1,8 +1,8 @@
 ![alt text](https://i.imgur.com/0Qp4YOb.png)
 
-**Welcome to classifying crystal structures & space groups from 1D X-ray diffraction (XRD) patterns.**
+**Welcome to the repo for classifying crystal structures & space groups from 1D X-ray diffraction (XRD) patterns.**
 
-*Can machine learning identify crystals in lossy light diffraction patterns?* </br>
+*Can machine learning identify crystals in light diffraction patterns?* </br>
 **[Check out our paper for more details and information, and be sure to cite us.]()**
  
 ---
