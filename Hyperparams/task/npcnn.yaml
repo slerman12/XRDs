@@ -1,0 +1,9 @@
+defaults:
+  - base
+  - _self_
+
+Eyes: XRD.NoPoolCNN
+Predictor: XRD.Predictor
+
+task_name: ${dataset.num_classes}-Way
+experiment: NPCNN

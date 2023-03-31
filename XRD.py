@@ -3,7 +3,6 @@
 import math
 import os
 import random
-from collections.abc import Iterable
 
 import numpy as np
 
@@ -11,6 +10,8 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset
 
+from Data.Generated.Download import download
+from Data.Generated.Generate import generate
 
 """
 Import UnifiedML and features
@@ -107,24 +108,15 @@ class MLP(nn.Module):
 
 
 class XRD(Dataset):
-    def __init__(self, roots=('./Datasets/Generated/database_datasets/HighRes2Theta_5to90/ExampleSet/',),
-                 train=True, train_eval_splits=(0.9,), num_classes=7, seed=0, transform=None, **kwargs):
+    def __init__(self, icsd=True, open_access=True, rruff=True, soup=True, train=True, num_classes=7, seed=0, **kwargs):
 
-        if not isinstance(roots, Iterable):
-            roots = (roots,)
-        if not isinstance(train_eval_splits, Iterable):
-            train_eval_splits = (train_eval_splits,)
-
-        assert len(roots) == len(train_eval_splits), 'Must provide train test split for each root dir'
+        roots, train_eval_splits = data_paths(icsd, open_access, rruff, soup)
 
         self.indices = []
         self.features = {}
         self.labels = {}
 
         for i, (root, split) in enumerate(zip(roots, train_eval_splits)):
-            if not os.path.exists(root):
-                pass  # <Download from Hugging Face>
-
             features_path = root + "features.csv"
             label_path = root + f"labels{num_classes}.csv"
 
@@ -153,8 +145,6 @@ class XRD(Dataset):
             indices = train_indices if train else eval_indices
             self.indices += zip([i] * len(indices), list(indices))
 
-        self.transform = transform
-
     def __len__(self):
         return len(self.indices)
 
@@ -164,11 +154,42 @@ class XRD(Dataset):
         x = torch.FloatTensor(list(map(float, self.features[root][idx].strip().split(','))))
         y = np.array(list(map(float, self.labels[root][idx].strip().split(',')))).argmax()
 
-        # Data transforms
-        if self.transform is not None:
-            x = self.transform(x)
-
         return x, y
+
+
+# Verify or download data
+def data_paths(icsd, open_access, rruff, soup):
+    roots = []
+    train_eval_splits = []
+
+    if rruff:
+        if os.path.exists('Data/Generated/XRDs_RRUFF/'):
+            roots.append('./Data/Generated/XRDs_RRUFF/')
+            train_eval_splits += [0.5 if soup else 0]  # Split 50% of experimental RRUFF data just for training
+        else:
+            rruff = False
+            print('Could not find RRUFF XRD files. Skipping souping and evaluating on '
+                  '10% held-out portion of synthetic data.')
+
+    if icsd:
+        if os.path.exists('Data/Generated/CIFs_ICSD/'):
+            generate('Data/Generated/CIFs_ICSD/', 'Data/Generated/XRDs_ICSD/')
+            roots.append('./Data/Generated/XRDs_ICSD/')
+            train_eval_splits += [1 if rruff else 0.9]  # Train on all synthetic data if evaluating on RRUFF
+        else:
+            icsd = False
+            print('Could not find ICSD CIF files. Using open-access CIFs instead.')
+
+    if open_access or not icsd:
+        if not os.path.exists('Data/Generated/XRDs_open_access/'):
+            if not os.path.exists('Data/Generated/CIFs_open_access/'):
+                download('Data/Generated/', 'CIFs_open_access/')
+            generate('Data/Generated/CIFs_open_access/', 'Data/Generated/XRDs_open_access/')
+        roots.append('./Data/Generated/XRDs_open_access/')
+        train_eval_splits += [1 if rruff else 0.9]  # Train on all synthetic data if evaluating on RRUFF
+
+    return roots, train_eval_splits
+
 
 if __name__ == '__main__':
     main()

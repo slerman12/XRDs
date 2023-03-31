@@ -10,9 +10,9 @@
 Paper:
 
 ```bibtex
-@article{Crystals,
-title   = {XRDs with deep learning (pending actual name)},
-author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
+@article{Crystallography,
+title   = {Classifying crystal symmetries and space groups from 1D augmented diffraction data with deep neural networks},
+author  = {Sam Lerman; Jerardo Salgado; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
 }
@@ -21,8 +21,6 @@ year    = {2023}
 ---
 
 # :point_up: Setup
-
-**Download and generate the 1D XRD data as described [in the Readme here](Datasets/Generated).**
 
 ## 1. Clone Current Project
 
@@ -71,15 +69,9 @@ conda activate ML
 > ```
 > &#9432; CUDA is needed to run the deep learning code on GPUs rather than CPUs. UnifiedML will automatically select GPUs when a working CUDA is available.
 
-[//]: # (${\text{\color{green}✓}}$ **Done** )
-
 ---
 
 # Reproducing The Work
-
-Once data is downloaded and UnifiedML is installed, reproducing is easy.
-
-[//]: # (<summary><h1 style="display: inline-block;">Reproducing paper</h1></summary>)
 
 To run, we have 3 model variants for predicting **7-way crystal types**:
 
@@ -115,16 +107,28 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 All model code can be found in [```XRD.py```](XRD.py)
 
+# Differences from and additions to paper
+
+**Synthetic data**
+
+This repo automatically downloads the public CIF database as opposed to ICSD as in the paper. If you’d rather use ICSD and have access, you can download it to the ```Data/Generated/CIFs_ICSD/``` directory, and this code will automatically use that instead as in the paper. If you’d like to use both, add the ```open_access=true``` flag.
+
+**Souping and evaluation data**
+
+This GitHub provides the experimental real-world data RRUFF. It will be detected and used for souping as described in the paper. That is, reserving a random 50% subset of the real-world data for training and the remaining 50% for evaluation. If you’d like to disable souping, use the ```soup=false``` flag. If you’d like to train only on a 0.9/0.1 split of the synthetic data, you can use ```rruff=false```.
+
 ---
 
 # Citing
 
+Note: Jerardo Salgado wrote the whole paper and worked with Zhaotong Du behind the scenes to help with data. Sam Lerman was donated co-first author reluctantly, but is grateful.
+
 If you find this work useful, be sure to cite us:
 
 ```bibtex
-@article{Crystals,
-title   = {XRDs with deep learning (pending actual name)},
-author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
+@article{Crystallography,
+title   = {Classifying crystal symmetries and space groups from 1D augmented diffraction data with deep neural networks},
+author  = {Sam Lerman; Jerardo Salgado; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
 }

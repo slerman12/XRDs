@@ -1,0 +1,26 @@
+defaults:
+  - classify@_global_: custom  # UnifiedML/Hyperparams/task/classify/custom
+  - _self_
+
+num_classes: 7
+icsd: true
+open_access: false
+rruff: true
+soup: true
+
+Dataset: XRD.XRD
+
+dataset:
+  num_classes: ${num_classes}
+  icsd: ${icsd}
+  open_access: ${open_access}
+  rruff: ${rruff}
+  soup: ${soup}
+
+Aug: Identity
+Eyes: Identity
+Trunk: Identity
+Predictor: Identity
+
+standardize: false
+norm: true
