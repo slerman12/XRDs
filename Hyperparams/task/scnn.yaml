@@ -5,5 +5,4 @@ defaults:
 Eyes: XRD.CNN
 Predictor: XRD.Predictor
 
-task_name: ${dataset.num_classes}-Way
-experiment: NPCNN
+experiment: SCNN

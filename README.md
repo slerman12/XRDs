@@ -10,9 +10,9 @@
 Paper:
 
 ```bibtex
-@article{Crystallography,
-title   = {Classifying crystal symmetries and space groups from 1D augmented diffraction data with deep neural networks},
-author  = {Sam Lerman; Jerardo Salgado; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
+@article{Crystals,
+title   = {XRDs with deep learning (pending actual name)},
+author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
 }
@@ -121,14 +121,12 @@ This GitHub provides the experimental real-world data RRUFF. It will be detected
 
 # Citing
 
-Note: Jerardo Salgado wrote the whole paper and worked with Zhaotong Du behind the scenes to help with data. Sam Lerman was donated co-first author reluctantly, but is grateful.
-
 If you find this work useful, be sure to cite us:
 
 ```bibtex
-@article{Crystallography,
-title   = {Classifying crystal symmetries and space groups from 1D augmented diffraction data with deep neural networks},
-author  = {Sam Lerman; Jerardo Salgado; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
+@article{Crystals,
+title   = {XRDs with deep learning (pending actual name)},
+author  = {Jerardo Salgado; Sam Lerman; Zhaotong Du; Chenliang Xu; and Niaz Abdolrahim},
 journal = {pre-print:Nature Communications},
 year    = {2023}
 }

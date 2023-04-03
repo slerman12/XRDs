@@ -4,5 +4,4 @@ defaults:
 
 Predictor: XRD.MLP
 
-task_name: ${dataset.num_classes}-Way
-experiment: NPCNN
+experiment: MLP

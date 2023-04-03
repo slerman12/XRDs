@@ -26,8 +26,7 @@ class NoPoolCNN(nn.Module):
     def __init__(self, input_shape=(1,)):
         super().__init__()
 
-        in_channels = input_shape if isinstance(input_shape, int) else \
-            input_shape[0]
+        in_channels = input_shape if isinstance(input_shape, int) else input_shape[0]
 
         self.CNN = \
             nn.Sequential(
@@ -50,8 +49,7 @@ class CNN(nn.Module):
     def __init__(self, input_shape=(1,)):
         super().__init__()
 
-        in_channels = input_shape if isinstance(input_shape, int) else \
-            input_shape[0]
+        in_channels = input_shape if isinstance(input_shape, int) else input_shape[0]
 
         self.CNN = \
             nn.Sequential(
