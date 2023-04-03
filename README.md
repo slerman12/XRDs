@@ -107,7 +107,7 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 All model and dataset code can be found in [```XRD.py```](XRD.py)
 
-Custom datasets can be evaluated with the ```Dataset=``` flag and ```train_steps=0```.
+Custom datasets can be evaluated with the ```Dataset=``` flag and ```train_steps=0 load=true``` from a saved checkpoint.
 
 # Differences from and additions to paper
 
