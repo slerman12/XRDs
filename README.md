@@ -107,6 +107,8 @@ The above scripts will launch training on the "souped" **synthetic + random 50% 
 
 All model code can be found in [```XRD.py```](XRD.py)
 
+Custom datasets can be evaluated with the ```Dataset=``` flag and ```train_steps=0```.
+
 # Differences from and additions to paper
 
 **Synthetic data**
